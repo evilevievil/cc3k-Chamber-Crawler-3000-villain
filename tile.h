@@ -6,16 +6,16 @@
 class Tile {
 
 //private fields
-char visual;
-bool isCell;
+  char visual;
+  bool walkable;
 
 
 //public methods
 public:
-virtual ~Tile() = 0;
+  virtual ~Tile() = 0;
 
-bool isStationary();
+  bool isWalkable();
 
 
-}
+};
 #endif

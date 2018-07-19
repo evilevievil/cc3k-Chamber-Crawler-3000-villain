@@ -1,6 +1,6 @@
 #include "tile.h"
 
 
-bool Tile::isStationary() {
-  return isCell;
+bool Tile::isWalkable() {
+  return Walkable;
 }
