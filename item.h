@@ -4,8 +4,11 @@
 class Item: public Tile {
 //private fields
 
-//public methods
 
+//public methods
+  virtual ~Item() = 0;
+  virtual void affect(PC &pc) = 0;
+  
 
 
 };
