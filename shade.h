@@ -1,21 +1,12 @@
-#include <string>
-#include <iomanip>
-#include <pair>
+#ifndef _SHADE_H_
+#define _SHADE_H_
+#include "pc.h"
 
-class Shade{
-	Pair <int, int> position;
-	int hp, atk, def;
-	char sym;
+class Shade: public PC{
+public:
+	int getScore() override;
+	Shade();
+	~Shade();
+};
 
-	protected:
-		int getHp();
-		void setHp();
-		int getAtk();
-		int getDef();
-		
-	public:
-		void move() override;
-		void checkSurroundings();
-		Shade();
-		~Shade();
-}
+#endif

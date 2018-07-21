@@ -1,22 +1,11 @@
-#include <iomanip>
-#include <pair>
+#ifndef _GOBLIN_H_
+#define _GOBLIN_H_
+#include "pc.h"
 
-class Goblin{
-	Pair <int, int> position;
-	int hp, atk, def;
-	char sym;
+class Goblin: public PC{
+public:
+	Goblin();
+	~Goblin();
+};
 
-	protected:
-		int getHp();
-		void setHp();
-		int getAtk();
-		int getDef();
-		
-	public:
-		void move() override;
-		void attack(Race *victim) override;
-		void beAttacked(Race *victim) override;
-		void checkSurroundings(vector<vector <Tile*>> &map);
-		Goblin();
-		~Goblin();
-}
+#endif

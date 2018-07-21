@@ -1,22 +1,15 @@
-#include <iomanip>
-#include <pair>
+#ifndef _VAMPIRE_H_
+#define _VAMPIRE_H_
+#include "pc.h"
 
-class Vampire{
-	Pair <int, int> position;
-	int hp, atk, def;
-	char sym;
+class Vampire: public PC{
 
-	protected:
-		int getHp();
-		void setHp();
-		int getAtk();
-		int getDef();
-		
-	public:
-		void move() override;
-		void attack(Race *victim) override;
-		void beAttacked(Race *victim) override;
-		void checkSurroundings(vector<vector <Tile*>> &map);
-		Vampire();
-		~Vampire();
-}
+public:
+	void attack(Race *victim) override;
+	void beAttacked(Race *victim) override;
+	void checkSurroundings(vector<vector <Tile*>> &map);
+	Vampire();
+	~Vampire();
+};
+
+#endif
