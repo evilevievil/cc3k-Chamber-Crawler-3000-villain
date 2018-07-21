@@ -1,26 +1,27 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include "vector"
 #include "textdisplay.h"
-#include 'all races'
+#include "tile.h"
+#include "floorlevel.h"
+#include <utility>
+#include <vector>
 
-class Game {
-  vector<vector<tile*>> emptyMap;
+
+class Game: public FloorLevel {
   vector<vector<tile*>> map;
   Tile* PC;
-  Floor level;
 
 public:
-  Game(char pc);
+  Game(char pc, string file);
   ~Game();
   init();
   refreshMap(); //check if win in this method
-  spawnAt(int x, int y);
-  movePC(int x, int y);
+  spawnAt(Pair<int, int> p, Tile* t);
+  movePC(Pair<int, int> p);
   moveEnemies();
-  PCAttach(int x, int y);
-  usePotion(int x, int y);
+  PCAttach(Pair<int, int> p);
+  usePotion(Pair<int, int> p);
 
 };
 #endif
