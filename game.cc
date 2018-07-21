@@ -30,14 +30,14 @@ Game::Game(char pc, string file = "map.txt"){
 Game::~Game(){}
 
 
-Game::init(){
+void Game::init(){
 //call refreshMap to generate races/items
 
 }
 
 
 
-Game::refreshMap(){
+void Game::refreshMap(){
 //remove all the races/items on the map
 
 
@@ -49,16 +49,18 @@ Game::refreshMap(){
 }
 
 
-Game::spawnAt(Pair<int, int> p, Tile* t){
+void Game::spawnAt(Pair<int, int> p, Tile* t){
   map[p.first][p.second] = t;
 }
 
 
-Gmae::movePc(Pair<int, int> p){
+void Game::movePc(Pair<int, int> p){
   //PC->move(map, p);
 }
 
-Game::moveEnemies(){
+void Game::moveEnemies(){
 
 }
 
+void Game::usePotion(Pair<int, int> p){
+}
