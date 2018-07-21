@@ -1,19 +1,17 @@
-#include <string>
-#include <iomanip>
+#ifndef _RACE_H_
+#define _RACE_H_
+#include <utility>
+#include "tile.h"
 
-class Race{
-	int x, y, hp, atk, def;
-	char sym;
+class Race: public Tile{
+protected:
+	std::Pair<int, int> position;
+	int maxhp, hp, atk, def;
 
-	protected:
-		int getHp();
-		void setHp();
-		int getAtk();
-		int getDef();
-		int getGold();
-		void setGold();
-	public:
-		Race();
-		virtual ~Race()=0;
+public:
+	int getHp();
+	Race();
+	virtual ~Race() = 0;
+};
 
-}
+#endif
