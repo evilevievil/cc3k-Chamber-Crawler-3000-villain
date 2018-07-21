@@ -6,8 +6,8 @@ class Gold: public Item {
 
 
 //public methods
-virtual void affect(PC &pc);
-
+  virtual void affect(PC &pc);
+  Gold();
 
 };
 

@@ -8,7 +8,7 @@ class Tile {
 //private fields
   char visual;
   bool walkable;
-
+  vector<Tile *> neighbors;
 
 //public methods
 public:
