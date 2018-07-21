@@ -5,7 +5,8 @@
 //Abstract superclass for Race, Item and Brick
 class Tile {
 
-//private fields
+//protected private fields
+protected:
   char visual;
   bool walkable;
   vector<Tile *> neighbors;
