@@ -1,5 +1,7 @@
 #ifndef _POTIONTYPE_H_
 #define _POTIONTYPE_H_
+#define "potion.h"
+
 
 class RH: public Potion {
 

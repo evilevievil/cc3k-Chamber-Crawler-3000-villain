@@ -1,5 +1,7 @@
 #ifndef _GOLDHOARD_H_
 #define _GOLDHOARD_H_
+#include "gold.h"
+
 
 class SmallHoard: public Gold {
 
