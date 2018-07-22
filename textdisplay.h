@@ -6,7 +6,7 @@ class Textdisplay{
   PC& pc;
 
 public:
-  Textdisplay(vector<vector<tile*>>* map, PC& pc);
+  Textdisplay();
   friend ostream& operator<<(ostream& out, Textdisplay td);
 
 };

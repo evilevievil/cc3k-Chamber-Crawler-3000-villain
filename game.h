@@ -13,15 +13,15 @@ class Game: public FloorLevel {
   Tile* PC;
 
 public:
-  Game(char pc, string file);
+  Game(char pc, std::tring file);
   ~Game();
-  init();
-  refreshMap(); //check if win in this method
-  spawnAt(Pair<int, int> p, Tile* t);
-  movePC(Pair<int, int> p);
-  moveEnemies();
-  PCAttach(Pair<int, int> p);
-  usePotion(Pair<int, int> p);
+  void init();
+  void refreshMap(); //check if win in this method
+  void spawnAt(std::Pair<int, int> p, Tile* t);
+  void movePC(std::Pair<int, int> p);
+  void moveEnemies();
+  void PCAttach(std::Pair<int, int> p);
+  void usePotion(std::Pair<int, int> p);
 
 };
 #endif

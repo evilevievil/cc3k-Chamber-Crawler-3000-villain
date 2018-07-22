@@ -1,22 +1,15 @@
-#include <iomanip>
-#include <pair>
+#ifndef _TROLL_H_
+#define _TROLL_H_
+#include "pc.h"
 
-class Troll{
-	Pair <int, int> position;
-	int hp, atk, def;
-	char sym;
+class Troll: public PC{
 
-	protected:
-		int getHp();
-		void setHp();
-		int getAtk();
-		int getDef();
-		
-	public:
-		void move() override;
-		void attack(Race *victim) override;
-		void beAttacked(Race *victim) override;
-		void checkSurroundings(vector<vector <Tile*>> &map);
-		Troll();
-		~Troll();
-}
+public:
+	void attack(Race *victim) override;
+	void beAttacked(Race *victim) override;
+	void checkSurroundings(vector<vector <Tile*>> &map);
+	Troll();
+	~Troll();
+};
+
+#endif
