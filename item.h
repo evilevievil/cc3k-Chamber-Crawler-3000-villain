@@ -1,5 +1,6 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
+#include tile.h
 
 class Item: public Tile {
 //private fields
