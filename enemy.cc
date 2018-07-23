@@ -4,13 +4,10 @@
 Enemy::Enemy(char c, Posn p, Tile* t, int maxhp, int hp, int atk, int def):
   Race{c, p, t, maxhp, hp, atk, def} {}
 
-Enemy::~Enemy() {}
-
-void Enemy::attack(Tile* t){
-  t.beAttacked(this);
+void Enemy::dropReward(){
 }
 
-void Enemy::beAttacked(Enemy& pc){
+void Enemy::beAttacked(PC& pc){
   hp -= damage(pc.getAtk(), def);
   if(hp <= 0) dropReward();
 }
