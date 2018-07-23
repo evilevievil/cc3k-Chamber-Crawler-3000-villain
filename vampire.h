@@ -1,15 +1,13 @@
 #ifndef _VAMPIRE_H_
 #define _VAMPIRE_H_
 #include "pc.h"
+#include "typedef.h"
 
 class Vampire: public PC{
 
 public:
-	void attack(Race *victim) override;
-	void beAttacked(Race *victim) override;
-	void checkSurroundings(vector<vector <Tile*>> &map);
-	Vampire();
-	~Vampire();
+	void attack(Tile* enemy) override;
+	Vampire(Posn p, Tile* t);
 };
 
 #endif

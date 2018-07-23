@@ -1,39 +1,47 @@
 #ifndef _GOLDHOARD_H_
 #define _GOLDHOARD_H_
+#include "gold.h"
+#include "testpc.h"
+
+
 
 class SmallHoard: public Gold {
-//private fields
-  int effect = 1;
 
+public:
 //public methods
   void affect(PC &pc) override;
+  SmallHoard();
+  ~SmallHoard();
 };
 
 
 class NormalHoard: public Gold {
-//private fields
-  int effect = 2;
 
+public:
 //public methods
   void affect(PC &pc) override;
+  NormalHoard();
+  ~NormalHoard();
 };
 
 
 class MerchantHoard: public Gold {
-//private fields
-  int effect = 4;
 
+public:
 //public methods
   void affect(PC &pc) override;
+  MerchantHoard();
+  ~MerchantHoard();
 };
 
 
 class DragonHoard: public Gold {
-//private fields
-  int effect = 6;
 
+public:
 //public methods
   void affect(PC &pc) override;
+  DragonHoard();
+  ~DragonHoard();
 };
 
 

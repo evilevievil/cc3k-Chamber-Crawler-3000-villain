@@ -1,9 +1,9 @@
 #include "gold.h"
 
 
-Tile::Item::Gold::Gold(): Item{Tile{'G', true}} {}
+Gold::Gold(): Item{'G', true} {}
 
-
+Gold::~Gold() {}
 
 
 

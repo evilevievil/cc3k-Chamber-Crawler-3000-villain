@@ -7,25 +7,31 @@ class PC: public Race{
 protected:
 	int gold;
 	int atkHistory, defHistory;
-	Tile* currentTile; // keeps the tile that PC is standing at now
-	
+	bool dead = false;
+
 public:
-	int getAtk();
-	int getDef();
 	int getGold();
+	bool isDead();
 	virtual int getScore();
-	virtual void move(Map& map, Posn p);
+
+	void restoreHp(int i = 5);
+	void addGold(int i = 5);
+	void move(Map& map, Pair<int, int> p);
+	void checkSurroundings(Map& map);
+
+	virtual void attack(Tile* t) = 0;
+	virtual void beAttacked(Enemy& e);
+	virtual void beAttacked(Elf& e);
+	virtual void beAttacked(Orcs& o);
 	virtual void beAffected(BA& potion);
 	virtual void beAffected(BD& potion);
 	virtual void beAffected(RH& potion);
 	virtual void beAffected(WA& potion);
 	virtual void beAffected(WD& potion);
 	virtual void beAffected(PH& potion);
-	virtual void attack(Race *victim);
-	virtual void beAttacked(Race *victim);
-	void checkSurroundings(Map& map);
-	PC();
-	virtual ~PC() = 0;
+
+	PC(Posn p, Tile* t, int maxhp, int hp, int atk, int def);
+
 };
 
 #endif
