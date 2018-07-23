@@ -1,4 +1,6 @@
-#include <iostrem>
+#include <iostream>
+#include <string>
+#include "testpc.h"
 #include "tile.h"
 #include "item.h"
 #include "gold.h"
@@ -6,92 +8,24 @@
 #include "goldhoard.h"
 #include "potiontype.h"
 #include "typedef.h"
-using namespace std
+using namespace std;
 
-class PC {
-public:
-int HP, Atk, Def, Gold;
-int atkHistory, defHistory;
-char visual;
-
-virtual ~PC() = 0;
-
-
-virtual void beAffected(BA &potion) {
-  Atk = Atk + BA_effect;
-  atkHistory = atkHistory + BA_effect;
-}
-
-
-
-virtual void beAffected(BD &potion) {
-  Def = Def + BD_effect;
-  defHistory = defHistory + BD_effect;
-}
-
-
-
-virtual void beAffected(RH &potion) {
-  HP = HP + RH_effect;
-}
-
-
-
-virtual void beAffected(WA &potion) {
-  Atk = Atk + WA_effect;
-  atkHistory = atkHistory + WA_effect;
-}
-
-
-
-
-virtual void beAffected(WD &potion) {
-  Def = Def + WD_effect;
-  defHistory = defHistory + WD_effect;
-}
-
-
-
-virtual void beAffected(PH &potion) {
-  HP = HP + PH_effect;
-}
-
-
-virtual void beRich(SmallHoard &gold) {
- Gold = Gold + Small_effect; 
-}
-
-
-
-virtual void beRich(NormalHoard &gold) {
-  Gold = Gold + Normal_effect;
-}
-
-
-virtual void beRich(MerchantHoard &gold) {
-  Gold = Gold + Merchant_effect;
-}
-
-
-virtual void beRich(DragonHoard &gold);
-  Gold = Gold + Dragon_effect;
-};
 
 class Slime: public PC{
-Slime ():
-public: 
+public:
+Slime (): 
   PC{50, 1, 200, 0, 0, 0, 'S'} {}
+~Slime() {}
 // lol Slime is lame..... no atk and 200 defence...
 };
 
 class Final: public PC{
-
-Final():
 public:
+Final():
   PC{200, 50, 10, 0, 0, 0, 'F'} {}  
-
+~Final() {}
 void beAffected(BA &potion) override {
-  Atk = Atk + BA_effect + (BA_effect / 2);
+  int temp = Atk + BA_effect + (BA_effect / 2);
   atkHistory = atkHistory + BA_effect + (BA_effect / 2);
 }
 
@@ -105,7 +39,7 @@ void beAffected(BD &potion) override {
 
 
 void beAffected(RH &potion) override {
-  HP = HP + RH_effect + (RH_effct / 2);
+  HP = HP + RH_effect + (RH_effect / 2);
 }
 
 
@@ -164,53 +98,33 @@ string s;
 
 while (cin>>s) {
 
-switch(s) {
-
-case "slime-rh" : rh->affect(*slime);
-                  break;
-case "slime-ba" : ba->affect(*slime);
-                  break;
-case "slime-bd" : bd->affect(*slime);
-                  break;
-case "slime-ph" : ph->affect(*slime);
-                  break;
-case "slime-wa" : wa->affect(*slime);
-                  break;
-case "final-wd" : wd->affect(*exam);
-                  break; 
-case "final-rh" : rh->affect(*exam);
-                  break;
-case "final-ba" : ba->affect(*exam);
-                  break;
-case "final-bd" : bd->affect(*exam);
-                  break;
-case "final-ph" : ph->affect(*exam);
-                  break; 
-case "final-wa" : wa->affect(*exam);
-                  break;
-case "final-wd" : wd->affect(*exam);
-                  break; 
-
-case "slime-sg" : sg->affect(*slime);
-                  break;
-case "slime-ng" : ng->affect(*slime);
-                  break;
-case "slime-mg" : mg->affect(*slime);
-                  break;
-case "slime-dg" : dg->affect(*slime);
-                  break;
-case "final-sg" : sg->affect(*exam);
-                  break;
-case "final-ng" : ng->affect(*exam);
-                  break;
-case "final-mg" : mg->affect(*exam);
-                  break;
-case "final-dg" : dg->affect(*exam);
-                  break; 
+if (s == "slime-rh") {
+  rh->affect(*slime);
+} else if (s == "slime-ba") {
+  ba->affect(*slime);
+} else if (s == "slime-bd") {
+  bd->affect(*slime);
+} else if (s == "slime-ph") {
+  ph->affect(*slime);
+} else if (s == "slime-wa") {
+  wa->affect(*slime);
+} else if (s == "slime-wd") {
+  wd->affect(*slime);
+} else if (s == "final-rh") {
+  rh->affect(*exam);
+} else if (s == "final-ba") {
+  ba->affect(*exam);
+} else if (s == "final-bd") {
+  bd->affect(*exam);
+} else if (s == "final-ph") {
+  ph->affect(*exam);
+} else if (s == "final-wa") {
+  wa->affect(*exam);
+} else if (s == "final-wd") {
+  wd->affect(*slime);
+} else {break;}
 
 
-
-}
 
 print_PC(slime);
 print_PC(exam);

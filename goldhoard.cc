@@ -1,23 +1,44 @@
 #include "goldhoard.h"
 
-void Tile::Item::Gold::SmallHoard::affect(PC &pc) {
-  pc.beAffected(*this); 
+void SmallHoard::affect(PC &pc) {
+  pc.beRich(*this); 
+}
+
+SmallHoard::SmallHoard(): 
+  Gold{} {}
+
+SmallHoard::~SmallHoard() {}
+
+
+void NormalHoard::affect(PC &pc) {
+  pc.beRich(*this); 
 }
 
 
-void Tile::Item::Gold::NormalHoard::affect(PC &pc) {
-  pc.beAffected(*this); 
+NormalHoard::NormalHoard(): 
+  Gold{} {}
+
+NormalHoard::~NormalHoard() {}
+
+
+void MerchantHoard::affect(PC &pc) {
+  pc.beRich(*this); 
 }
 
 
-void Tile::Item::Gold::MerchantHoard::affect(PC &pc) {
-  pc.beAffected(*this); 
+MerchantHoard::MerchantHoard(): 
+  Gold{} {}
+
+MerchantHoard::~MerchantHoard() {}
+
+
+void DragonHoard::affect(PC &pc) {
+  pc.beRich(*this); 
 }
 
 
-void Tile::Item::Gold::DragonHoard::affect(PC &pc) {
-  pc.beAffected(*this); 
-}
+DragonHoard::DragonHoard(): 
+  Gold{} {}
 
-
+DragonHoard::~DragonHoard() {}
 
