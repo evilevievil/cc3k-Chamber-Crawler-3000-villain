@@ -5,15 +5,14 @@
 
 class Enemy: public Race{	
 public:
-	virtual void dropReward() = 0;
-	virtual void attack(Tile* t);
-	virtual void beAttacked(Enemy& pc);
+	virtual void dropReward();
+	virtual void attack(Tile* t) = 0;
+	virtual void beAttacked(PC& pc);
 	virtual void beAttacked(Vampire& pc);
-	virtual void beAttacked(Goblin& pc);
 	virtual void randMove(Map& map);
+	void beAttacked(Goblin& pc);
 	void checkSurroundings();	
 	Enemy(char c, Posn p, Tile* t, int maxhp, int hp, int atk, int def);
-	virtual ~Enemy() = 0;
 };
 
 #endif
