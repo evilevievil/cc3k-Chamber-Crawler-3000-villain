@@ -6,22 +6,27 @@
 #include "floorlevel.h"
 #include <utility>
 #include <vector>
-
+#include <sstream>
+#include "enemy.h"
+#include "pc.h"
 
 class Game: public FloorLevel {
   vector<vector<tile*>> map;
+  vector<Enemy *> enemies;
   Tile* PC;
+  ostringstream actions;
 
 public:
-  Game(char pc, std::tring file);
+  Game(char pc, std::string file);
   ~Game();
   void init();
   void refreshMap(); //check if win in this method
-  void spawnAt(std::Pair<int, int> p, Tile* t);
-  void movePC(std::Pair<int, int> p);
+  void spawnAt(Posn p, Tile* t);
+  void movePC(Posn p);
   void moveEnemies();
-  void PCAttach(std::Pair<int, int> p);
-  void usePotion(std::Pair<int, int> p);
+  void PCAttach(Posn p);
+  void usePotion(Posn p);
+  void generator();
 
 };
 #endif
