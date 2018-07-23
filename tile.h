@@ -13,6 +13,7 @@ protected:
 
 //public methods
 public:
+  Tile(char c, bool b);
   virtual ~Tile() = 0;
   Tile(char visual, bool walkable);
   bool isWalkable();
