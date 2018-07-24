@@ -1,9 +1,14 @@
 #include "elf.h"
 
-void Elf::attack(Tile* pc){
-  pc->beAttacked(*this);
+void Elf::attack(Tile* t){
+  if(PC* pc = dynamic_cast<PC*>(t)){
+    pc->beAttacked(*this);
+  }
+  else {
+    throw "Invalid attack target";
+  }
 }
 
 
-Elf::Elf(Posn p, Tile* t):
-  Enemy{'E', p, t, 140, 140, 30, 10} {}
+Elf::Elf():
+  Enemy{'E', 140, 140, 30, 10} {}

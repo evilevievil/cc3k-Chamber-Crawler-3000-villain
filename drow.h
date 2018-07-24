@@ -13,7 +13,7 @@ public:
 	void beAffected(WA& potion) override;
 	void beAffected(WD& potion) override;
 	void beAffected(PH& potion) override;
-	Drow(Posn p, Tile* t);
+	Drow();
 };
 
 #endif

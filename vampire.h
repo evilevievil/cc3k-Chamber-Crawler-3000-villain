@@ -7,7 +7,7 @@ class Vampire: public PC{
 
 public:
 	void attack(Tile* enemy) override;
-	Vampire(Posn p, Tile* t);
+	Vampire();
 };
 
 #endif

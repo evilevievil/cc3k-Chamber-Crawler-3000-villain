@@ -4,6 +4,9 @@ Tile::Tile(char c, bool b): visual{c}, walkable{b} {}
 
 Tile::~Tile() {}
 
+char Tile::getVisual(){
+  return visual;
+}
 bool Tile::isWalkable() {
-  return Walkable;
+  return walkable;
 }

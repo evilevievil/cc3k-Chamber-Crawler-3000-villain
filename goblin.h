@@ -2,6 +2,7 @@
 #define _GOBLIN_H_
 #include "pc.h"
 #include "typedef.h"
+#include "orcs.h"
 
 class Goblin: public PC{
 public:

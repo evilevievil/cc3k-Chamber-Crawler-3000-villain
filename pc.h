@@ -2,6 +2,9 @@
 #define _PC_H_
 #include "race.h"
 #include "typedef.h"
+#include "elf.h"
+#include "orcs.h"
+#include "potiontype.h"
 #include <sstream>
 
 class PC: public Race{
@@ -9,14 +12,15 @@ protected:
 	int gold;
 	int atkHistory, defHistory;
 	bool dead = false;
+	Tile* curTile = nullptr;
 		
 public:
-	ostringstream action; //public field that records PC's actions in a turn
+	std::ostringstream action; //public field that records PC's actions in a turn
 
 	int getGold();
 	bool isDead();
 	void setDead();
-	Posn getPosn();
+	void setCurTile(Tile* t);
 	virtual int getScore();
 	void restoreHp(int i = 5);
 	void addGold(int i = 5);
@@ -36,6 +40,7 @@ public:
 	virtual void beAffected(WA& potion);
 	virtual void beAffected(WD& potion);
 	virtual void beAffected(PH& potion);
-	PC(Posn p, Tile* t, int maxhp, int hp, int atk, int def);
+	PC(int maxhp, int hp, int atk, int def);
 };
+
 #endif
