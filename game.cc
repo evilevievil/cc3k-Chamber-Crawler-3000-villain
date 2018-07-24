@@ -14,7 +14,7 @@ Game::Game(char pc, string file = "map.txt"){
     map.push_back(vector<tile*>);
 
     for(int j = 0; j < 79; ++j){
-      f >> c;
+      f >> c;s
       switch(c){
 	case '.' :
           map[i].push_back(new Brick{c, true});
@@ -89,21 +89,21 @@ void Game::movePc(Direction d){
   int x= get<0>(PC->getPosn());
   int y= get<1>(PC->getPosn());
   if(d == Direction::no){
-     PC->move (map, Posn{x,y+1}, actions);
+     PC->move (map, Posn{x,y+1});
   }else if (d == Direction::so){
-     PC->move (map, Posn{x,y-1}, actions);
+     PC->move (map, Posn{x,y-1});
   }else if (d == Direction::ea){
-     PC->move (map, Posn{x+1,y}, actions);
+     PC->move (map, Posn{x+1,y});
   }else if (d == Direction::we){
-     PC->move (map, Posn{x-1,y}, actions);
+     PC->move (map, Posn{x-1,y});
   }else if (d == Direction::ne){
-     PC->move (map, Posn{x+1,y+1}, actions);
+     PC->move (map, Posn{x+1,y+1});
   }else if (d == Direction::nw){
-     PC->move (map, Posn{x-1,y+1}, actions);
+     PC->move (map, Posn{x-1,y+1});
   }else if (d == Direction::se){
-     PC->move (map, Posn{x+1,y-1}, actions);
+     PC->move (map, Posn{x+1,y-1});
   }else if (d == Direction::sw){
-     PC->move (map, Posn{x-1,y-1}, actions);
+     PC->move (map, Posn{x-1,y-1});
   }
 }
 

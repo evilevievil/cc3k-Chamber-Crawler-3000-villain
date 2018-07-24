@@ -14,7 +14,7 @@ class Game: public FloorLevel {
   vector<vector<tile*>> map;
   vector<Enemy *> enemies;
   Tile* PC;
-  ostringstream actions;
+
 
 public:
   Game(char pc, std::string file);
