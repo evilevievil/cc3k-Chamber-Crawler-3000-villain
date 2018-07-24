@@ -1,5 +1,11 @@
 #include "game.h"
+#include "typedef.h"
 #include <ifstream>
+#include <cstdlib>
+#include<time.h>
+#include <tile.h>
+using namespace std
+
 
 Game::Game(char pc, string file = "map.txt"){
   ifstream f {file};
@@ -30,14 +36,13 @@ Game::Game(char pc, string file = "map.txt"){
 Game::~Game(){}
 
 
-void Game::init(){
+void Game::init(){ //initialization should create a random position for pc and calls refreshMap
 //call refreshMap to generate races/items
 
 }
 
 
-
-void Game::refreshMap(){
+//void Game::refreshMap(){
 //remove all the races/items on the map
 
 
@@ -46,21 +51,46 @@ void Game::refreshMap(){
 
 //increase floor level
 
-}
+//}
 
 
-void Game::spawnAt(Pair<int, int> p, Tile* t){
+void Game::spawnAt(Posn p, Tile* t){
   map[p.first][p.second] = t;
 }
 
 
-void Game::movePc(Pair<int, int> p){
-  //PC->move(map, p);
+void Game::movePc(Direction d){
+  int x= get<0>(PC->getPosn());
+  int y= get<1>(PC->getPosn());
+  if(d == Direction::no){
+     PC->move (map, Posn{x,y+1}, actions);
+  }else if (d == Direction::so){
+     PC->move (map, Posn{x,y-1}, actions);
+  }else if (d == Direction::ea){
+     PC->move (map, Posn{x+1,y}, actions);
+  }else if (d == Direction::we){
+     PC->move (map, Posn{x-1,y}, actions);
+  }else if (d == Direction::ne){
+     PC->move (map, Posn{x+1,y+1}, actions);
+  }else if (d == Direction::nw){
+     PC->move (map, Posn{x-1,y+1}, actions);
+  }else if (d == Direction::se){
+     PC->move (map, Posn{x+1,y-1}, actions);
+  }else if (d == Direction::sw){
+     PC->move (map, Posn{x-1,y-1}, actions);
+  }
 }
 
 void Game::moveEnemies(){
+  for (auto i: enemies){
+    i->checkSurroundings();
+  }
+}
+
+void Game::usePotion(Posn p){
 
 }
 
-void Game::usePotion(Pair<int, int> p){
+void Game::generator(){
+
 }

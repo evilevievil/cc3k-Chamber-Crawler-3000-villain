@@ -9,7 +9,7 @@ protected:
 	int gold;
 	int atkHistory, defHistory;
 	bool dead = false;
-		
+
 public:
 	ostringstream action; //public field that records PC's actions in a turn
 
@@ -18,6 +18,7 @@ public:
 	void setDead();
 	Posn getPosn();
 	virtual int getScore();
+
 	void restoreHp(int i = 5);
 	void addGold(int i = 5);
 	void move(Map& map, Posn p); // move to a new square if valid
@@ -29,13 +30,14 @@ public:
 	void beAttacked(Enemy& e);
 	virtual void beAttacked(Elf& e);
 	virtual void beAttacked(Orcs& o);
-
 	virtual void beAffected(BA& potion);
 	virtual void beAffected(BD& potion);
 	virtual void beAffected(RH& potion);
 	virtual void beAffected(WA& potion);
 	virtual void beAffected(WD& potion);
 	virtual void beAffected(PH& potion);
+
 	PC(Posn p, Tile* t, int maxhp, int hp, int atk, int def);
+
 };
 #endif

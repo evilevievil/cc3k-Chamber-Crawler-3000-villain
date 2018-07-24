@@ -1,30 +1,53 @@
 #include "potiontype.h"
 
-void Tile::Item::Potion::RH::affect(PC &pc) {
+void RH::affect(PC &pc) {
+  pc.beAffected(*this);
+}
+
+RH::RH(): Potion{} {}
+RH::~RH() {}
+
+
+void BA::affect(PC &pc) {
   pc.beAffected(*this);
 }
 
 
-void Tile::Item::Potion::BA::affect(PC &pc) {
+BA::BA(): Potion{} {}
+BA::~BA() {}
+
+
+void BD::affect(PC &pc) {
   pc.beAffected(*this);
 }
 
 
-void Tile::Item::Potion::BD::affect(PC &pc) {
+BD::BD(): Potion{} {}
+BD::~BD() {}
+
+
+void PH::affect(PC &pc) {
   pc.beAffected(*this);
 }
 
 
-void Tile::Item::Potion::PH::affect(PC &pc) {
+PH::PH(): Potion{} {}
+PH::~PH() {}
+
+
+void WA::affect(PC &pc) {
   pc.beAffected(*this);
 }
 
 
-void Tile::Item::Potion::WA::affect(PC &pc) {
+WA::WA(): Potion{} {}
+WA::~WA() {}
+
+
+void WD::affect(PC &pc) {
   pc.beAffected(*this);
 }
 
 
-void Tile::Item::Potion::WD::affect(PC &pc) {
-  pc.beAffected(*this);
-}
+WD::WD(): Potion{} {}
+WD::~WD() {}
