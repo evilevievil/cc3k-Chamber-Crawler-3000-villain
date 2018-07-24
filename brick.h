@@ -1,30 +1,12 @@
 #ifndef _BRICK_H_
 #define _BRICK_H_
 
-class Brick: public Item{
+#include "tile.h"
 
-//public method
-Brick();
-
-
+class Brick: public Tile{
+public:
+  //public method
+  Brick(char visual, bool walkable = false);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif

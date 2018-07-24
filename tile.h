@@ -9,14 +9,15 @@ class Tile {
 protected:
   char visual;
   bool walkable;
-  std::vector<Tile *> neighbors;
+<<<<<<< HEAD
 
 //public methods
 public:
-  virtual ~Tile() = 0;
-  Tile(char visual, bool walkable);
+  Tile(char c, bool b);
+  char getVisual();
   bool isWalkable();
-  virtual std::string beSpotted() {return "";}
+  virtual ~Tile() = 0;
+  virtual std::string beSpotted();
 
 };
 #endif

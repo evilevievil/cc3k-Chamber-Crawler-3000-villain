@@ -8,7 +8,7 @@ class Troll: public PC{
 public:
 	void endTurnAction() override;
 	void attack(Tile *enemy) override;
-	Troll(Posn p, Tile* t);
+	Troll();
 };
 
 #endif

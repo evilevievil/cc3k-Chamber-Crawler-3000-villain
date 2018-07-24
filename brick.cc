@@ -1,6 +1,6 @@
 #include "brick.h"
 
-Tile::Item::Brick::Brick(char visual, bool walkable = false):
-  Item{Tile{visual, walkable}} {}
+Brick::Brick(char visual, bool walkable):
+  Tile{visual, walkable} {}
 
 
