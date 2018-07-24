@@ -11,41 +11,44 @@ bool WD::knowsType = false;
 void RH::affect(PC &pc) {
   pc.beAffected(*this);
   RH::knowsType = true;  
+  pc.action << "PC consumed RH potion";
 }
 
 RH::RH(): Potion{} {}
 RH::~RH() {}
 
-RH::std::string beSpotted() {
-  RH::knowsType? return "RH potion" : return "Unknown"
+RH::std::string beSpotted() override {
+  RH::knowsType? return "RH potion" : return "Unknown potion";
 }
 
 //BA
 void BA::affect(PC &pc) {
   pc.beAffected(*this);
   BA::knowsType = true;  
+  pc.action << "PC consumed BA potion";
 }
 
 
 BA::BA(): Potion{} {}
 BA::~BA() {}
 
-BA::std::string beSpotted() {
-  BA::knowsType? return "BA potion" : return "Unknown"
+BA::std::string beSpotted() override {
+  BA::knowsType? return "BA potion" : return "Unknown potion";
 }
 
 //BD
 void BD::affect(PC &pc) {
   pc.beAffected(*this);
   BD::knowsType = true;  
+  pc.action << "PC consumed BD potion";
 }
 
 
 BD::BD(): Potion{} {}
 BD::~BD() {}
 
-BD::std::string beSpotted() {
-  BD::knowsType? return "BD potion" : return "Unknown"
+BD::std::string beSpotted() override {
+  BD::knowsType? return "BD potion" : return "Unknown potion";
 }
 
 
@@ -53,14 +56,15 @@ BD::std::string beSpotted() {
 void PH::affect(PC &pc) {
   pc.beAffected(*this);
   PH::knowsType = true;  
+  pc.action << "PC consumed PH potion";
 }
 
 
 PH::PH(): Potion{} {}
 PH::~PH() {}
 
-PH::std::string beSpotted() {
-  PH::knowsType? return "PH potion" : return "Unknown"
+PH::std::string beSpotted() override {
+  PH::knowsType? return "PH potion" : return "Unknown potion";
 }
 
 
@@ -68,14 +72,15 @@ PH::std::string beSpotted() {
 void WA::affect(PC &pc) {
   pc.beAffected(*this);
   WA::knowsType = true;  
+  pc.action << "PC consumed WA potion";
 }
 
 
 WA::WA(): Potion{} {}
 WA::~WA() {}
 
-WA::std::string beSpotted() {
-  WA::knowsType? return "WA potion" : return "Unknown"
+WA::std::string beSpotted() override {
+  WA::knowsType? return "WA potion" : return "Unknown potion";
 }
 
 
@@ -83,13 +88,14 @@ WA::std::string beSpotted() {
 void WD::affect(PC &pc) {
   pc.beAffected(*this);
   WD::knowsType = true;  
+  pc.action << "PC consumed WD potion";
 }
 
 
 WD::WD(): Potion{} {}
 WD::~WD() {}
 
-WD::std::string beSpotted() {
-  WD::knowsType? return "WD potion" : return "Unknown"
+WD::std::string beSpotted() override {
+  WD::knowsType? return "WD potion" : return "Unknown potion";
 }
 
