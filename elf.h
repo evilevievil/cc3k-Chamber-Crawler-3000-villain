@@ -7,7 +7,7 @@
 class Elf: public Enemy{
 public:
   void attack(Tile* pc) override;
-  Elf(Posn p, Tile* t);
+  Elf();
 
 };
 

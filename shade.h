@@ -7,7 +7,7 @@ class Shade: public PC{
 public:
 	void attack(Tile* enemy) override;
 	int getScore() override;
-	Shade(Posn p, Tile* t);
+	Shade();
 };
 
 #endif

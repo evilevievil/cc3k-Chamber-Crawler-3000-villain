@@ -10,7 +10,7 @@ public:
   void attack(Tile* pc) override;
   void checkSurroundings(Map& map) override;
   void resetHostile();
-  Merchant(Posn p, Tile* t);
+  Merchant();
 
 };
 
