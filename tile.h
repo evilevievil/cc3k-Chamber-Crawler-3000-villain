@@ -17,7 +17,7 @@ public:
   virtual ~Tile() = 0;
   Tile(char visual, bool walkable);
   bool isWalkable();
-
+  virtual std::string beSpotted() = 0;
 
 };
 #endif
