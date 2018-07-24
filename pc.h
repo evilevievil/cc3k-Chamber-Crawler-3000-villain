@@ -39,5 +39,18 @@ public:
 
 	PC(Posn p, Tile* t, int maxhp, int hp, int atk, int def);
 
+//overloaded methods for item(gold and potion)
+
+	virtual void beAffected(BA &potion);
+	virtual void beAffected(BD &potion);
+	virtual void beAffected(RH &potion);
+	virtual void beAffected(WA &potion);
+	virtual void beAffected(WD &potion);
+	virtual void beAffected(PH &potion);
+	virtual void beRich(SmallHoard &gold);
+	virtual void beRich(NormalHoard &gold);
+	virtual void beRich(MerchantHoard &gold);
+	virtual void beRich(DragonHoard &gold);
+
 };
 #endif
