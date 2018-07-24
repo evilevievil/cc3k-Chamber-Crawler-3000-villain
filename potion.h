@@ -12,6 +12,7 @@ class Potion: public Item {
 public:
   Potion();
   virtual ~Potion() = 0;
+  virtual std::string beSpotted() = 0;
 }; 
 
 
