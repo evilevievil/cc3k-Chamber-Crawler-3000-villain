@@ -2,24 +2,31 @@
 #define _PC_H_
 #include "race.h"
 #include "typedef.h"
+#include <sstream>
 
 class PC: public Race{
 protected:
 	int gold;
 	int atkHistory, defHistory;
 	bool dead = false;
-	
+		
 public:
+	ostringstream action; //public field that records PC's actions in a turn
+
 	int getGold();
 	bool isDead();
+	void setDead();
+	Posn getPosn();
 	virtual int getScore();
 	void restoreHp(int i = 5);
 	void addGold(int i = 5);
-	void move(Map& map, Pair<int, int> p);
-	void checkSurroundings(Map& map);
+	void move(Map& map, Posn p); // move to a new square if valid
+	void checkSurroundings(Map& map); // check surrounding for items and
+					  // report to action
 
+	virtual void endTurnAction(); // PC does this at the end of a turn
 	virtual void attack(Tile* t) = 0;
-	virtual void beAttacked(Enemy& e);
+	void beAttacked(Enemy& e);
 	virtual void beAttacked(Elf& e);
 	virtual void beAttacked(Orcs& o);
 
@@ -31,5 +38,4 @@ public:
 	virtual void beAffected(PH& potion);
 	PC(Posn p, Tile* t, int maxhp, int hp, int atk, int def);
 };
-
 #endif

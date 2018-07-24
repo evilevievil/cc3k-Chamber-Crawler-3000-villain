@@ -5,8 +5,10 @@ void Goblin::attack(Tile* enemy){
 }
 
 void Goblin::beAttacked(Orcs& o){
-  hp -= 1.5 * damage(o.getAtk(), def);
-  if(hp <= 0) dead = true;
+  d = 1.5 * damage(o.getAtk(), def);
+  hp -= d;
+  setDead();
+  action << e.getVisual() << " deals " << d << " damage to PC" << endl;
 }
 
 Goblin::Goblin(Posn p, Tile *t): PC{p, t, 110, 15, 20} {}
