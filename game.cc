@@ -2,8 +2,8 @@
 #include "typedef.h"
 #include <ifstream>
 #include <cstdlib>
-#include<time.h>
-#include <tile.h>
+#include <ctime>
+#include "tile.h"
 using namespace std
 
 
@@ -30,15 +30,41 @@ Game::Game(char pc, string file = "map.txt"){
       }
     }
   }
+  
+  switch(pc) {
+  case 's' : PC = new Shade();
+             break;
+  case 'd' : PC = new Drow();
+             break;
+  case 'v' : PC = new Vampire();
+             break;
+  case 'g' : PC = new Goblin();
+             break;
+  case 't' : PC = new Troll();
+             break;
+  default  : throw "Invalid PC type";
+             break; 
+  }
 }
 
 
-Game::~Game(){}
+Game::~Game(){
+  
+  for (auto i : map) {
+    for (auto j : i) {
+      delete j;
+    }
+  }
+
+}
 
 
 void Game::init(){ //initialization should create a random position for pc and calls refreshMap
 //call refreshMap to generate races/items
-
+  generatorStair();
+  generatorPotion();
+  generatorGold();
+  generatorEnemy();
 }
 
 
@@ -89,8 +115,23 @@ void Game::moveEnemies(){
 
 void Game::usePotion(Posn p){
 
+  Tile * potiontile = map[p.first][p.second]; 
+  if (Potion *potion = dymamic_cast<Potion *>(potiontile)) {
+    potion->affect(*PC); //update action string after methods are completed
+  } else {throw "Invalid use potion";}
 }
 
-void Game::generator(){
 
-}
+void Game::generatorStair() {}
+void Game::generatorEnemy(){}
+
+void Game::generatorGold(){}
+
+void Game::generatorPotion(){}
+
+
+
+
+
+
+
