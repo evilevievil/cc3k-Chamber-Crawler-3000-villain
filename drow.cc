@@ -5,8 +5,10 @@ void Drow::attack(Tile* enemy){
 }
 
 void Drow::beAttacked(Elf& e){
-  hp -= damage(e.getAtk(), def);
-  if(hp <= 0) dead = true;
+  d = damage(e.getAtk(), def);
+  hp -= d;
+  setDead();
+  action << e.getVisual() << " deals " << d << " damage to PC" << endl;
 }
 
 Drow::Drow(Posn p, Tile* t): PC{p, t, 150, 150, 25, 15} {}

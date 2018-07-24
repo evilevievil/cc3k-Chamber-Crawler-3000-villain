@@ -1,5 +1,9 @@
 #include "troll.h"
 
+void endTurnAction(){
+  restoreHp();
+}
+
 void Troll::attack(Tile* enemy){
   enemy->beAttacked(*this);
 }
