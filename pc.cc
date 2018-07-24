@@ -155,20 +155,3 @@ virtual void beRich(MerchantHoard &gold) {
 virtual void beRich(DragonHoard &gold){
   gold = gold + Dragon_effect;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
