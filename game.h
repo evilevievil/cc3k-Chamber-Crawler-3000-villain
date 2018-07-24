@@ -26,7 +26,10 @@ public:
   void moveEnemies();
   void PCAttach(Posn p);
   void usePotion(Posn p);
-  void generator();
-
+  void generatorStair();
+  void generatorEnemy();
+  void generatorGold();
+  void generatorPotion();
+  
 };
 #endif

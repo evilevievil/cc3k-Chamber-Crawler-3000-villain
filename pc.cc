@@ -43,7 +43,7 @@ void PC::move(Map& map, Posn p){
   // walk to new square
   map[position.first][position.second] = curTile;
   curTile = newTile;
-  tile = this;
+  tile = this; // jamie do you ean by new tile??
 }
 
 void PC::checkSurroundings(Map& map){
