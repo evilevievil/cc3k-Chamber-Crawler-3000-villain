@@ -25,7 +25,7 @@ Final():
   PC{200, 50, 10, 0, 0, 0, 'F'} {}  
 ~Final() {}
 void beAffected(BA &potion) override {
-  int temp = Atk + BA_effect + (BA_effect / 2);
+  Atk = Atk + BA_effect + (BA_effect / 2);
   atkHistory = atkHistory + BA_effect + (BA_effect / 2);
 }
 
