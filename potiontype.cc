@@ -1,5 +1,13 @@
 #include "potiontype.h"
 
+bool RH::knowsType = false;
+bool Potion::knowsType = false;
+bool Potion::knowsType = false;
+bool Potion::knowsType = false;
+bool Potion::knowsType = false;
+bool Potion::knowsType = false;
+
+
 void RH::affect(PC &pc) {
   pc.beAffected(*this);
 }

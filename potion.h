@@ -6,6 +6,7 @@
 class Potion: public Item {
 //private fields
 
+//protected fields
 
 //public methods
 public:
