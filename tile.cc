@@ -10,3 +10,7 @@ char Tile::getVisual(){
 bool Tile::isWalkable() {
   return walkable;
 }
+
+std::string Tile::beSpotted(){
+  return "";
+}

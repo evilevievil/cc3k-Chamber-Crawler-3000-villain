@@ -1,15 +1,18 @@
 #ifndef _POTION_H_
 #define _POTION_H_
 #include "item.h"
+#include "testpc.h"
 
-
-class Potion: public {
+class Potion: public Item {
 //private fields
 
+//protected fields
 
 //public methods
-  virtual void affect(PC &pc);
+public:
   Potion();
+  virtual ~Potion() = 0;
+  virtual std::string beSpotted() = 0;
 }; 
 
 
