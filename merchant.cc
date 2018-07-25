@@ -23,8 +23,8 @@ void Merchant::checkSurroundings(Map& map){
   }
 
   //check if pc is in one block radius
-  for(int i = position.first - 1; ++i; i < position.first + 2){
-    for(int j = position.second - 1; ++j; j < position.second + 2){
+  for(int i = position.first - 1; i < position.first + 2; ++i){
+    for(int j = position.second - 1; j < position.second + 2; ++j){
       if(map[i][j]->getVisual() == '@'){
 	// pc is in one block radius, attck it
 	attack(map[i][j]);
