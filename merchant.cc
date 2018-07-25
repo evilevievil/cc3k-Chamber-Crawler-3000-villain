@@ -43,4 +43,4 @@ void Merchant::resetHostile(){
 
 
 Merchant::Merchant():
-  Enemy{'E', 30, 30, 70, 5} {}
+  Enemy{'M', 30, 30, 70, 5} {}
