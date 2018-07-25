@@ -5,11 +5,11 @@
 #include "typedef.h"
 
 class Dragon: public Enemy{
-  Tile* hoard;
+  Posn hoard;
 public:
   void attack(Tile* pc) override;
   void checkSurroundings(Map& map) override;
-  Dragon(Tile* hoard);
+  Dragon(Posn hoard);
 
 };
 

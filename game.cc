@@ -310,14 +310,14 @@ void Game::generatorGold() {
     else if (num == 8) {
         int pn = px - 1;
         int pm = py - 1;
-        for (;pn<px + 2;++pn) {
+        for (;pn < px + 2; ++pn) {
             for (;pm<py + 2;++pm) {
                 if (map[pm][pn]->getVisual() == '.') { break; }
             }
             if (map[pm][pn]->getVisual() == '.') { break; }
         }
         newtile = new DragonHoard{};
-        Tile* dragontile = new Dragon{ newtile };
+        Tile* dragontile = new Dragon{ Posn{pm, pn} };
         swap(dragontile, map[pm][pn]);
         delete dragontile;
     }
@@ -335,21 +335,33 @@ void Game::generatorPotion() {
     int px = p.second;
     if (1 == num) {
         newtile = new RH{};
+        RH *rh = dynamic_cast<RH *>(newtile);
+        rh->setKnowsType(false);
     }
     else if (2 == num) {
         newtile = new BA{};
+        BA *ba = dynamic_cast<BA *>(newtile);
+        ba->setKnowsType(false);       
     }
     else if (3 == num) {
         newtile = new BD{};
+        BD *bd = dynamic_cast<BD *>(newtile);
+        bd->setKnowsType(false);
     }
     else if (4 == num) {
         newtile = new PH{};
+        PH *ph = dynamic_cast<PH *>(newtile);
+        ph->setKnowsType(false);
     }
     else if (5 == num) {
         newtile = new WA{};
+        WA *wa = dynamic_cast<WA *>(newtile);
+        wa->setKnowsType(false);
     }
     else if (6 == num) {
         newtile = new WD{};
+        WD *wd = dynamic_cast<WD *>(newtile);
+        wd->setKnowsType(false);
     }
     swap(newtile, map[py][px]);
     delete newtile;

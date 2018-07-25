@@ -38,7 +38,8 @@ void PC::setDead(){
 }
 
 void PC::restoreHp(int i){
-  hp += i;
+  int nhp = hp + i;
+  hp = nhp < maxhp ? nhp : maxhp;
 }
 
 void PC::addGold(int i){
@@ -89,7 +90,7 @@ void PC::beAttacked(Enemy& e){
   int d = damage(e.getAtk(), def);
   hp -= d;
   setDead();
-  action << e.getVisual() << " deals " << d << " damage to  PC" << endl;
+  action << e.getVisual() << " deals " << d << " damage to PC. ";
 }
 
 // PC is attacked by an elf
@@ -98,7 +99,7 @@ void PC::beAttacked(Elf& e){
   int d = damage(e.getAtk(), def);
   hp -= 2 * d;
   setDead();
-  action << e.getVisual() << " deals " << d << " + " << d << " damage to PC" << endl;
+  action << e.getVisual() << " deals " << d << " + " << d << " damage to PC. ";
 }
 
 // PC is attacked by an Orcs
@@ -106,7 +107,7 @@ void PC::beAttacked(Orcs& o){
   int d = damage(o.getAtk(), def);
   hp -= d;
   setDead();
-  action << o.getVisual() << " deals " << d << " damage to PC" << endl;
+  action << o.getVisual() << " deals " << d << " damage to PC. ";
 }
 
 

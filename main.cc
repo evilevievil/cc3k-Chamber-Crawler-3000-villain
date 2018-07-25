@@ -3,7 +3,8 @@
 #include "game.h"
 using namespace std;
 
-int main (){
+int main (int argc, char* argv[]){
+	srand(stoi(argv[1]));
 	string welcome = "Hello Welcome to ChamberCrawler3000!";
 	string heroes = "		Shade(s)	Drow(d)		Vampire(v)	Goblin(g) 	Troll(t)";
 	string hp = "HP: 	125				150				50					110					120";
@@ -53,7 +54,10 @@ int main (){
 		}
 		cout << g << endl;
 		}
-		catch(const char *s){ //works now?
+		catch(string s){ 
+			cout << g << s << endl;
+		}
+		catch(const char* s){
 			cout << g << s << endl;
 		}
 	}

@@ -21,7 +21,7 @@ int Race::getDef(){
 }
 
 int Race::damage(int atk, int def){
-  return std::ceil((100 / (100 + def)) * atk);
+  return std::ceil((100.0 / (100.0 + def)) * atk);
 }
 
 Posn Race::getPosn(){

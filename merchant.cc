@@ -15,6 +15,16 @@ void Merchant::attack(Tile* t){
 }
 
 
+void Merchant::beAttacked(PC& pc){
+  hostile = true;
+
+  int d = damage(pc.getAtk(), def);
+  hp -= d;
+  giveReward(pc);
+  reportDamage(d, pc.action);
+}
+
+
 void Merchant::checkSurroundings(Map& map){
   // if not hostile, just take a random move
   if(! hostile){
@@ -38,7 +48,7 @@ void Merchant::checkSurroundings(Map& map){
 
 
 void Merchant::resetHostile(){
-  hostile = true;
+  Merchant::hostile = true;
 }
 
 
