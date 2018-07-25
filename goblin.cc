@@ -1,4 +1,5 @@
 #include "goblin.h"
+#include "enemy.h"
 using namespace std;
 
 void Goblin::attack(Tile* t){

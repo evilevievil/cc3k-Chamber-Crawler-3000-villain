@@ -1,7 +1,6 @@
 #ifndef _TILE_H_
 #define _TILE_H_
-#include <vector>
-
+#include <string>
 //Abstract superclass for Race, Item and Brick
 class Tile {
 
@@ -9,7 +8,6 @@ class Tile {
 protected:
   char visual;
   bool walkable;
-<<<<<<< HEAD
 
 //public methods
 public:

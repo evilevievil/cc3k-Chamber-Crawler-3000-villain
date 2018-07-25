@@ -1,4 +1,5 @@
 #include "shade.h"
+#include "enemy.h"
 
 void Shade::attack(Tile* t){
   if(Enemy* e = dynamic_cast<Enemy*>(t)){

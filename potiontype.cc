@@ -1,4 +1,5 @@
 #include "potiontype.h"
+#include "pc.h"
 
 bool RH::knowsType = false;
 bool BA::knowsType = false;
@@ -17,8 +18,8 @@ void RH::affect(PC &pc) {
 RH::RH(): Potion{} {}
 RH::~RH() {}
 
-RH::std::string beSpotted() override {
-  RH::knowsType? return "RH potion" : return "Unknown potion";
+std::string RH::beSpotted() {
+  return RH::knowsType? "RH potion" : "Unknown potion";
 }
 
 //BA
@@ -32,8 +33,8 @@ void BA::affect(PC &pc) {
 BA::BA(): Potion{} {}
 BA::~BA() {}
 
-BA::std::string beSpotted() override {
-  BA::knowsType? return "BA potion" : return "Unknown potion";
+std::string BA::beSpotted() {
+  return BA::knowsType?  "BA potion" :  "Unknown potion";
 }
 
 //BD
@@ -47,8 +48,8 @@ void BD::affect(PC &pc) {
 BD::BD(): Potion{} {}
 BD::~BD() {}
 
-BD::std::string beSpotted() override {
-  BD::knowsType? return "BD potion" : return "Unknown potion";
+std::string BD::beSpotted() {
+  return BD::knowsType? "BD potion" : "Unknown potion";
 }
 
 
@@ -63,8 +64,8 @@ void PH::affect(PC &pc) {
 PH::PH(): Potion{} {}
 PH::~PH() {}
 
-PH::std::string beSpotted() override {
-  PH::knowsType? return "PH potion" : return "Unknown potion";
+std::string PH::beSpotted() {
+  return PH::knowsType? "PH potion" : "Unknown potion";
 }
 
 
@@ -79,8 +80,8 @@ void WA::affect(PC &pc) {
 WA::WA(): Potion{} {}
 WA::~WA() {}
 
-WA::std::string beSpotted() override {
-  WA::knowsType? return "WA potion" : return "Unknown potion";
+std::string WA::beSpotted() {
+  return WA::knowsType? "WA potion" : "Unknown potion";
 }
 
 
@@ -95,7 +96,7 @@ void WD::affect(PC &pc) {
 WD::WD(): Potion{} {}
 WD::~WD() {}
 
-WD::std::string beSpotted() override {
-  WD::knowsType? return "WD potion" : return "Unknown potion";
+std::string WD::beSpotted() {
+  return WD::knowsType? "WD potion" : "Unknown potion";
 }
 

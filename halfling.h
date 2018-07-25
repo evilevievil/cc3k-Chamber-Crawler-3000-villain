@@ -4,6 +4,8 @@
 #include "enemy.h"
 #include "typedef.h"
 
+class Vampire;
+
 class Halfling: public Enemy{
 public:
   void attack(Tile* pc) override;

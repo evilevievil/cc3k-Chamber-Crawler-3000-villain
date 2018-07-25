@@ -1,9 +1,9 @@
-# example4/Makefile
+# example4/Makefilehuman.o 
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall -Werror=vla -MMD -g
-OBJECTS=itemtest.o testpc.o tile.o item.o gold.o potion.o goldhoard.o potiontype.o 
+OBJECTS=main.o game.o tile.o race.o item.o brick.o pc.o enemy.o gold.o potion.o goldhoard.o potiontype.o shade.o drow.o vampire.o troll.o goblin.o slime.o human.o elf.o orcs.o dwarf.o dragon.o halfling.o merchant.o  
 DEPENDS=${OBJECTS:.o=.d}
-EXEC=itemtest
+EXEC=cc3k
 
 #TESTDIR=test
 #EXECSDIR=../executables

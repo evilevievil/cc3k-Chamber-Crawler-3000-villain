@@ -1,7 +1,9 @@
 #ifndef _POTIONTYPE_H_
 #define _POTIONTYPE_H_
 #include "potion.h"
-#include "testpc.h"
+
+class PC;
+
 
 class RH: public Potion {
 

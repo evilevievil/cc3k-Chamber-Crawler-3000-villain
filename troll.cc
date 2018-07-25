@@ -1,4 +1,5 @@
 #include "troll.h"
+#include "enemy.h"
 
 void Troll::endTurnAction(){
   restoreHp();

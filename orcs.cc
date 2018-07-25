@@ -1,4 +1,6 @@
 #include "orcs.h"
+#include "pc.h"
+
 
 void Orcs::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){

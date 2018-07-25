@@ -30,7 +30,7 @@ enum Direction{
 	nw,
 	se, 
 	sw 
-}
+};
 
 #endif
 

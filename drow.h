@@ -3,6 +3,8 @@
 #include "pc.h"
 #include "typedef.h"
 
+class Elf;
+
 class Drow: public PC{		
 public:
 	void attack(Tile* t) override;

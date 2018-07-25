@@ -1,4 +1,5 @@
 #include "elf.h"
+#include "pc.h"
 
 void Elf::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){

@@ -6,7 +6,7 @@
 class Slime: public PC{
 	
 public:
-	void attack(Tile* enemy) override;
+	void attack(Tile* t) override;
 	int getScore() override;
 	Slime();
 };
