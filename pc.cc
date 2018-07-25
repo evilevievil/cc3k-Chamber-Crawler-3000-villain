@@ -4,6 +4,7 @@
 #include "potiontype.h"
 #include "goldhoard.h"
 #include "enemy.h"
+#include <string>
 using namespace std;
 
 
@@ -47,20 +48,21 @@ void PC::move(Map& map, Posn p){
   Tile* newTile = map[p.first][p.second];
   // check if new square is walkable
   if(! newTile->isWalkable()){
-    throw "Invalid move";
+      string s = "Invalid Move. Target cannot be walk on!";
+      throw s;
   }
   // walk to new square
   map[position.first][position.second] = curTile;
   curTile = newTile;
-  newTile = this;
+  map[p.first][p.second] = this;
   position = p;
 }
 
 void PC::checkSurroundings(Map& map){
   // check neighbour squares and add to action the item spotted
-  for(int i = position.first - 1; i < position.first + 2; ++i){
-    for(int j = position.second - 1; j < position.second + 2; ++j){
-      action << map[i][j]->beSpotted() << endl;
+    for (int i = position.first - 1; i < position.first + 2; ++i) {
+        for (int j = position.second - 1; j < position.second + 2; ++j) {
+            action << map[i][j]->beSpotted();
     }
   }
 }

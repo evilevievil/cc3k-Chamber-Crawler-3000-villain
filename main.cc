@@ -53,7 +53,7 @@ int main (){
 		}
 		cout << g << endl;
 		}
-		catch(string s){
+		catch(const char *s){ //works now?
 			cout << g << s << endl;
 		}
 	}
