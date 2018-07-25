@@ -17,4 +17,4 @@ void Dragon::checkSurroundings(Map& map){
 }
 
 Dragon::Dragon(Tile* hoard):
-  Enemy{'E', 150, 150, 20, 20}, hoard{hoard} {}
+  Enemy{'D', 150, 150, 20, 20}, hoard{hoard} {}

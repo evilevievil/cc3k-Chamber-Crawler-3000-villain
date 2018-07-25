@@ -58,8 +58,8 @@ void PC::move(Map& map, Posn p){
 
 void PC::checkSurroundings(Map& map){
   // check neighbour squares and add to action the item spotted
-  for(int i = position.first - 1; ++i; i < position.first + 2){
-    for(int j = position.second - 1; ++j; j < position.second + 2){
+  for(int i = position.first - 1; i < position.first + 2; ++i){
+    for(int j = position.second - 1; j < position.second + 2; ++j){
       action << map[i][j]->beSpotted() << endl;
     }
   }

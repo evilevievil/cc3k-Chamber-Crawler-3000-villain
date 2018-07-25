@@ -16,8 +16,8 @@ int main (){
 	char c;
 	cin >> c; //reads in user input to determine which hero the players want to play. 
 	Game g {c};
-	//g.enterFloor();
-	cout << g << "player spawed!" << endl;
+	g.enterFloor();
+	cout << g << "player spawned!" << endl;
 	bool b = true;
 
     string s;

@@ -29,6 +29,7 @@ public:
   void moveEnemies();
   void PCAttack(std::string d);
   void usePotion(std::string d);
+  void allocatorPC();
   void generatorStair();
   void generatorEnemy();
   void generatorGold();

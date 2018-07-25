@@ -26,7 +26,7 @@ Game::Game(char pc, string file){
   ifstream f {file};
   string line;
   for(int i = 0; i < 25; ++i){
-    getline(f, line, '\0');
+    getline(f, line);
     vector<Tile*> row;
     map.push_back(row);
 
@@ -84,10 +84,11 @@ void Game::restart(){
   delete PC;
   floornum = 0;
   ++floornum;
+  allocatorPC();
   generatorStair();
-  generatorPotion();
-  generatorGold();
-  generatorEnemy(); 
+  for (int i=0; i<10; ++i) {generatorPotion();}
+  for (int i=0; i<10; ++i) {generatorGold();}
+  for (int i=0; i<10; ++i) {generatorEnemy();}
 }
 
 
@@ -96,10 +97,11 @@ void Game::enterFloor(){
     cleanMap();
   }
   ++floornum;
+  allocatorPC();
   generatorStair();
-  generatorPotion();
-  generatorGold();
-  generatorEnemy();
+  for (int i=0; i<10; ++i) {generatorPotion();}
+  for (int i=0; i<10; ++i) {generatorGold();}
+  for (int i=0; i<10; ++i) {generatorEnemy();}
 }
 
 
@@ -227,9 +229,18 @@ Posn Game::generatorpos() {
   }
     n = rand() % w;
     m = rand() % h;
-  } while (map[x+n][y=m]->getVisual() != '.');
+  } while (map[y+m][x+n]->getVisual() != '.');
   Posn p{x+n, y+m};
   return p;
+}
+
+void Game::allocatorPC() {
+  Posn p = generatorpos();
+  int px = p.first;
+  int py = p.second;
+  PC->setPosn(p);
+  PC->setCurTile(map[py][px]);
+  map[py][px] = PC;
 }
 
 void Game::generatorStair() {
@@ -237,7 +248,7 @@ void Game::generatorStair() {
   int px = p.first;
   int py = p.second;
   Tile *newtile = new Brick{'\\', true};
-  swap(newtile, map[px][py]);
+  swap(newtile, map[py][px]);
   delete newtile;
 }
 
@@ -260,8 +271,10 @@ void Game::generatorEnemy(){
   } else if (17<=num && num<=18) {
     newtile = new Merchant{};
   } 
-  swap(newtile, map[px][py]);
+  dynamic_cast<Enemy *>(newtile)->setPosn(p);
+  swap(newtile, map[py][px]);
   delete newtile;
+  enemies.push_back(dynamic_cast<Enemy *>(map[py][px])); //someone check my syntax
 }
 
 void Game::generatorGold(){
@@ -280,23 +293,22 @@ void Game::generatorGold(){
     int pm = py-1;
     for (;pn<px+2;++pn) {
       for (;pm<py+2;++pm) {
-        if (map[pn][pm]->getVisual() == '.') {break;}
+        if (map[pm][pn]->getVisual() == '.') {break;}
       }
-      if (map[pn][pm]->getVisual() == '.') {break;}
+      if (map[pm][pn]->getVisual() == '.') {break;}
     }
     newtile = new DragonHoard{}; 
     Tile* dragontile = new Dragon{newtile};
-    swap(dragontile, map[pn][pm]);
+    swap(dragontile, map[pm][pn]);
     delete dragontile;
   } 
 
-  swap(newtile, map[px][py]);
+  swap(newtile, map[py][px]);
   delete newtile;
 }
 
 void Game::generatorPotion(){
 
-  srand(time(NULL));
   int num = rand() % 6 + 1;
   Posn p = generatorpos();
   Tile* newtile;
@@ -315,7 +327,7 @@ void Game::generatorPotion(){
   } else if (6==num) {
     newtile = new WD{};
   } 
-  swap(newtile, map[px][py]);
+  swap(newtile, map[py][px]);
   delete newtile;
 }
 
@@ -326,7 +338,7 @@ void Game::setFreeze(bool b){
 
 void Game::oneTurn(){
   if(! freeze){
-    for(int i = 0; ++i; i < enemies.size()){
+    for(int i = 0; i < enemies.size(); ++i){
       enemies[i]->checkSurroundings(map);
     }
   }
@@ -351,9 +363,10 @@ ostream& operator<<(ostream& out, Game &g){
   cout << "HP: " << hp << endl;
   cout << "ATK: " << atk << endl;
   cout << "DEF: " << def << endl;
-  // cout << "Action :" << g.PC->action.str();
-  // g.PC->action.str("");
-  // g.PC->action.clear();
+  cout << "Action :" << g.PC->action.str();
+  g.PC->action.str("");
+  g.PC->action.clear();
+  return out;
 }
 
 
