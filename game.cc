@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "tile.h"
-using namespace std
+using namespace std;
 
 
 Game::Game(char pc, string file = "map.txt"){
@@ -268,7 +268,19 @@ void Game::generatorPotion(){
 }
 
 
+void Game::printStats(){
+  string hero= pc->getName();
+  int gold= pc->getGold();
+  int hp= pc->getHp();
+  int atk=pc->getAtk();
+  int def=pc->getDef();
 
+  cout<<"Race: "<<hero<<"  Gold: "<< gold<< "                                         Floor "<< floornum<<endl;
+  cout<<"HP: "<< hp<<endl;
+  cout<<"ATK: "<<atk<<endl;
+  cout<<"DEF: "<<def<<endl;
+  cout<<"Action :"<<pc->action.str()<<endl;
+}
 
 
 

@@ -30,6 +30,7 @@ public:
   void generatorEnemy();
   void generatorGold();
   void generatorPotion();
+  void printStats();
   
 };
 #endif

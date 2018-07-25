@@ -5,10 +5,12 @@
 #include "elf.h"
 #include "orcs.h"
 #include "potiontype.h"
+#include <string>
 #include <sstream>
 
 class PC: public Race{
 protected:
+	string name;
 	int gold;
 	int atkHistory, defHistory;
 	bool dead = false;
@@ -48,7 +50,7 @@ public:
 	virtual void beRich(MerchantHoard &gold);
 	virtual void beRich(DragonHoard &gold);
 
-	PC(int maxhp, int hp, int atk, int def);
+	PC(int maxhp, int hp, int atk, int def, string hero);
 
 
 };
