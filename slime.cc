@@ -8,6 +8,6 @@ int Slime::getScore(){
   return 1.5 * gold;
 }
 
-Slime::Slime(Posn p, Tile* t) PC{p, t, 50, 50, 0, 200} {}
+Slime::Slime() PC{50, 50, 0, 200, "Slime"} {}
 
 

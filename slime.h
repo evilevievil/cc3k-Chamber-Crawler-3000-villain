@@ -4,10 +4,11 @@
 #include "typedef.h"
 
 class Slime: public PC{
+	
 public:
 	void attack(Tile* enemy) override;
 	int getScore() override;
-	Slime(Posn p, Tile* t);
+	Slime();
 };
 
 #endif

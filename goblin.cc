@@ -17,4 +17,4 @@ void Goblin::beAttacked(Orcs& o){
   action << o.getVisual() << " deals " << d << " damage to PC" << endl;
 }
 
-Goblin::Goblin(Posn p, Tile *t): PC{p, t, 110, 110, 15, 20} {}
+Goblin::Goblin(): PC{110, 110, 15, 20, "Goblin"} {}

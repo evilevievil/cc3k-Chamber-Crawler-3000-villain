@@ -9,4 +9,4 @@ void Vampire::attack(Tile* t){
   }
 }
 
-Vampire::Vampire(): PC{9999, 50, 25, 25} {}
+Vampire::Vampire(): PC{9999, 50, 25, 25, "Vampire"} {}
