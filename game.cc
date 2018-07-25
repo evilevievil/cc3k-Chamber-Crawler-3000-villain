@@ -78,39 +78,16 @@ Game::~Game() {
 
 }
 
-
-void Game::restart() {
-    cleanMap();
-    delete PC;
-    floornum = 0;
-    ++floornum;
-    allocatorPC();
-    generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+bool Game::won(){
+    return win;
 }
-
-
-void Game::enterFloor() {
-    if (floornum != 0) {
-        cleanMap();
-    }
-    ++floornum;
-    allocatorPC();
-    generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
-}
-
 
 void Game::cleanMap() {
     for (auto i : map) {
         for (auto j : i) {
             char v = j->getVisual();
             if (v != '.' && v != '|' && v != '-' && v != '+' && v != '#' && v != ' ') {
-                if (v != '@') delete j; // keep PC alive, delete all other stuff
+                if (v != '@') {delete j;} // keep PC alive, delete all other stuff
 
                 j = new Brick{ '.', true };
             }
@@ -118,6 +95,32 @@ void Game::cleanMap() {
     }
     enemies.clear();
 }
+
+void Game::restart() {
+    cleanMap();
+    delete PC;
+    floornum = 0;
+    ++floornum;
+    generatorStair();
+    for (int i = 0; i<10; ++i) { generatorPotion(); }
+    for (int i = 0; i<10; ++i) { generatorGold(); }
+    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+}
+
+
+
+void Game::enterFloor() {
+    if (floornum != 0) {
+        cleanMap();
+    }
+    ++floornum;
+    generatorStair(); 
+    for (int i = 0; i<10; ++i) { generatorPotion(); }
+    for (int i = 0; i<10; ++i) { generatorGold(); }
+    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+}
+
+
 
 
 void Game::spawnAt(Posn p, Tile* t) {
@@ -157,8 +160,20 @@ Posn Game::dirpos(std::string d, Posn p) {
 
 
 void Game::movePC(std::string d) {
-    PC->move(map, dirpos(d, PC->getPosn()));
-    PC->action << "PC moves " << d << ". ";
+    Posn p = PC->getPosn();
+    Posn np = dirpos(d, p);
+    if (map[np.first][np.second]->getVisual() == '\\') {
+        if(floornum == 4) {
+            PC->action << "You completed all 4 levels! Your score is: " << PC->getScore();
+            win = true;
+        } else {
+          enterFloor();
+          PC->action << "PC enters new level. ";
+        }
+    } else {
+      PC->move(map, np);
+      PC->action << "PC moves " << d << ". ";
+    }
 }
 
 void Game::moveEnemies() {
@@ -185,10 +200,9 @@ void Game::usePotion(std::string d) {
     map[p.first][p.second] = new Brick{ '.', true };
 }
 
-Posn Game::generatorpos() {
-    int num, x, y, h, w, s;
+Posn Game::generatorpos(int num) {
+    int  x, y, h, w, s;
     do {
-        num = rand() % 5;
         s = rand() % 2;
         switch (num) {
         case 0:
@@ -245,8 +259,8 @@ Posn Game::generatorpos() {
     return p;
 }
 
-void Game::allocatorPC() {
-    Posn p = generatorpos();
+void Game::allocatorPC(int num) {
+    Posn p = generatorpos(num);
     int py = p.first;
     int px = p.second;
     PC->setPosn(p);
@@ -255,7 +269,10 @@ void Game::allocatorPC() {
 }
 
 void Game::generatorStair() {
-    Posn p = generatorpos();
+    int num = rand();
+    allocatorPC(num%5);
+    ++num;
+    Posn p = generatorpos(num%5);
     int py = p.first;
     int px = p.second;
     Tile *newtile = new Brick{ '\\', true };
@@ -265,7 +282,7 @@ void Game::generatorStair() {
 
 void Game::generatorEnemy() {
     int num = rand() % 18 + 1;
-    Posn p = generatorpos();
+    Posn p = generatorpos(rand()%5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
@@ -296,7 +313,7 @@ void Game::generatorEnemy() {
 
 void Game::generatorGold() {
     int num = rand() % 8 + 1;
-    Posn p = generatorpos();
+    Posn p = generatorpos(rand()%5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
@@ -329,7 +346,7 @@ void Game::generatorGold() {
 void Game::generatorPotion() {
 
     int num = rand() % 6 + 1;
-    Posn p = generatorpos();
+    Posn p = generatorpos(rand()%5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
