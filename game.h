@@ -16,10 +16,12 @@ class Game {
     PC* PC;
     int floornum = 0;
     bool freeze = false;
+    bool win = false;
 
 public:
     Game(char pc, std::string file = "map.txt");
     ~Game();
+    bool won();
     void restart();
     void enterFloor(); //check if win in this method
     void cleanMap();
@@ -29,12 +31,12 @@ public:
     void moveEnemies();
     void PCAttack(std::string d);
     void usePotion(std::string d);
-    void allocatorPC();
+    void allocatorPC(int num);
     void generatorStair();
     void generatorEnemy();
     void generatorGold();
     void generatorPotion();
-    Posn generatorpos();
+    Posn generatorpos(int num);
     void setFreeze(bool b);
     void oneTurn();
 
