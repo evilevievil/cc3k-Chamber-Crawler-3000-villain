@@ -3,12 +3,13 @@
 
 #include "enemy.h"
 #include "typedef.h"
+#include "vampire.h"
 
 class Dwarf: public Enemy{
 public:
   void attack(Tile* pc) override;
   void beAttacked(Vampire& pc) override;
-  Dwarf(Posn p, Tile* t);
+  Dwarf();
 };
 
 #endif

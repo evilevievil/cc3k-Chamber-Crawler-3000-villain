@@ -1,15 +1,18 @@
 #include "enemy.h"
-#include <rand>
+#include "cstdlib"
+#include <sstream>
+using namespace std;
 
-Enemy::Enemy(char c, Posn p, Tile* t, int maxhp, int hp, int atk, int def):
-  Race{c, p, t, maxhp, hp, atk, def} {}
+Enemy::Enemy(char c, int maxhp, int hp, int atk, int def):
+  Race{c, maxhp, hp, atk, def} {}
 
-void reportDamage(int damage, ostringstream& action){
-  pc.action << "PC deals " << d << " damage to " << visual << " (" << hp << " hp)" << endl;
+void Enemy::reportDamage(int damage, ostringstream& action){
+  action << "PC deals " << damage << " damage to " << visual << " (" << hp << " hp)" << endl;
 }
+
 // this is attacked by a PC
 void Enemy::beAttacked(PC& pc){
-  d = damage(pc.getAtk(), def);
+  int d = damage(pc.getAtk(), def);
   hp -= d;
   giveReward(pc);
   reportDamage(d, pc.action);
@@ -17,7 +20,8 @@ void Enemy::beAttacked(PC& pc){
 
 // this is attacked by an vampire
 void Enemy::beAttacked(Vampire& pc){
-  hp -= damage(pc.getAtk(), def);
+  int d = damage(pc.getAtk(), def);
+  hp -= d;
   // vampire gains 5 HP after attck
   pc.restoreHp();
   giveReward(pc);
@@ -41,13 +45,13 @@ void Enemy::giveReward(Goblin& pc){
   }
 }
 
-void Enemy::checkSurroundings(Map& map){{
+void Enemy::checkSurroundings(Map& map){
   //check if pc is in one block radius
-  for(int i = postion.first - 1; ++i; i < position.first + 2){
+  for(int i = position.first - 1; ++i; i < position.first + 2){
     for(int j = position.second - 1; ++j; j < position.second + 2){
       if(map[i][j]->getVisual() == '@'){
-	// pc is in one block radius, attck it
-	attack(map[i][j]);
+	      // pc is in one block radius, attck it
+	      attack(map[i][j]);
         return;
       }
     }
@@ -64,12 +68,12 @@ void Enemy::randMove(Map& map){
     x = position.first + ((rand() % 3) - 1);
     y = position.second + ((rand() % 3) - 1);
     // check if it's a valid square to move to
-    if(map[x][y]->isWalkable()){
-      if(map[x][y]->getVisual() != '+') break;
+    if(map[x][y]->getVisual() == '.'){
+      break;
     }
   }
   // move to that square
-  map[postion.first][position.second] = curTile;
-  curTile = map[x][y];
+  map[position.first][position.second] = map[x][y];
   map[x][y] = this;
+  position = Posn {x, y};
 }

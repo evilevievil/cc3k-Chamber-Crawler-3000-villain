@@ -1,9 +1,14 @@
 #include "human.h"
 
-void Human::attack(Tile* pc){
-  pc->beAttacked(*this);
+void Human::attack(Tile* t){
+  if(PC* pc = dynamic_cast<PC*>(t)){
+    pc->beAttacked(*this);
+  }
+  else {
+    throw "Invalid attack target";
+  }
 }
 
-Human::Human(Posn p, Tile* t):
-  Enemy{'H', p, t, 140, 140, 20, 20} {}
+Human::Human():
+  Enemy{'H', 140, 140, 20, 20} {}
 	

@@ -1,13 +1,14 @@
-#ifndef _SHADE_H_
-#define _SHADE_H_
+#ifndef _SLIME_H_
+#define _SLIME_H_
 #include "pc.h"
 #include "typedef.h"
 
-class Shade: public PC{
+class Slime: public PC{
+	
 public:
 	void attack(Tile* enemy) override;
 	int getScore() override;
-	Shade();
+	Slime();
 };
 
 #endif

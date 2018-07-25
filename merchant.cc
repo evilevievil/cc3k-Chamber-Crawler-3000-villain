@@ -1,10 +1,15 @@
 #include "merchant.h"
 
-Merchant::hostile = false;
+bool Merchant::hostile = false;
 
 
-void Merchant::attack(Tile* pc){
-  pc->beAttacked(*this);
+void Merchant::attack(Tile* t){
+  if(PC* pc = dynamic_cast<PC*>(t)){
+    pc->beAttacked(*this);
+  }
+  else {
+    throw "Invalid attack target";
+  }
 }
 
 
@@ -16,7 +21,7 @@ void Merchant::checkSurroundings(Map& map){
   }
 
   //check if pc is in one block radius
-  for(int i = postion.first - 1; ++i; i < position.first + 2){
+  for(int i = position.first - 1; ++i; i < position.first + 2){
     for(int j = position.second - 1; ++j; j < position.second + 2){
       if(map[i][j]->getVisual() == '@'){
 	// pc is in one block radius, attck it
@@ -35,5 +40,5 @@ void Merchant::resetHostile(){
 }
 
 
-Merchant::Merchant(Posn p, Tile* t):
-  Enemy{'E', p, t, 30, 30, 70, 5} {}
+Merchant::Merchant():
+  Enemy{'E', 30, 30, 70, 5} {}

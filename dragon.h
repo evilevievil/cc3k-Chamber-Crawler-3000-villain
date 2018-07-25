@@ -9,7 +9,7 @@ class Dragon: public Enemy{
 public:
   void attack(Tile* pc) override;
   void checkSurroundings(Map& map) override;
-  Dragon(Posn p, Tile* t, Tile* hoard);
+  Dragon(Tile* hoard);
 
 };
 

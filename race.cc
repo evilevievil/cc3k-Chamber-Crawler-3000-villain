@@ -2,8 +2,8 @@
 #include <cmath>
 
 
-Race::Race(char c, Posn p, Tile* t, int maxhp, int hp, int atk, int def): 
-  Tile{c, false}, position{p}, curTile{t}, maxhp{maxhp}, hp{hp}, atk{atk}, def{def}
+Race::Race(char c, int maxhp, int hp, int atk, int def): 
+  Tile{c, false}, maxhp{maxhp}, hp{hp}, atk{atk}, def{def}
 {}
 
 Race::~Race() {}
@@ -24,3 +24,10 @@ int Race::damage(int atk, int def){
   return std::ceil((100 / (100 + def)) * atk);
 }
 
+Posn Race::getPosn(){
+  return position;
+}
+
+void Race::setPosn(Posn p){
+  position = p;
+}

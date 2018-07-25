@@ -1,7 +1,8 @@
 #ifndef _TYPEDEF_H_
 #define _TYPEDEF_H_
-#include <vector>
+
 #include <utility>
+#include <vector>
 
 class Tile;
 
@@ -19,6 +20,17 @@ const int Normal_effect = 2;
 const int Merchant_effect = 4;
 const int Dragon_effect = 6;
 
+
+enum Direction{
+	no, 
+	so, 
+	ea,
+	we, 
+	ne,
+	nw,
+	se, 
+	sw 
+}
 
 #endif
 
