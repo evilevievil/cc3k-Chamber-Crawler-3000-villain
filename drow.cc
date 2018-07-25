@@ -16,7 +16,7 @@ void Drow::beAttacked(Elf& e){
   int d = damage(e.getAtk(), def);
   hp -= d;
   setDead();
-  action << e.getVisual() << " deals " << d << " damage to PC" << endl;
+  action << e.getVisual() << " deals " << d << " damage to PC";
 }
 
 Drow::Drow(): PC{150, 150, 25, 15, "Drow"} {}

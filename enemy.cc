@@ -9,7 +9,7 @@ Enemy::Enemy(char c, int maxhp, int hp, int atk, int def):
   Race{c, maxhp, hp, atk, def} {}
 
 void Enemy::reportDamage(int damage, ostringstream& action){
-  action << "PC deals " << damage << " damage to " << visual << " (" << hp << " hp)" << endl;
+  action << "PC deals " << damage << " damage to " << visual << " (" << hp << " hp). ";
 }
 
 // this is attacked by a PC

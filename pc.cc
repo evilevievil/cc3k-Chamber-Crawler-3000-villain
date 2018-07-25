@@ -4,6 +4,8 @@
 #include "potiontype.h"
 #include "goldhoard.h"
 #include "enemy.h"
+#include "brick.h"
+#include <string>
 using namespace std;
 
 
@@ -36,7 +38,8 @@ void PC::setDead(){
 }
 
 void PC::restoreHp(int i){
-  hp += i;
+  int nhp = hp + i;
+  hp = nhp < maxhp ? nhp : maxhp;
 }
 
 void PC::addGold(int i){
@@ -47,20 +50,33 @@ void PC::move(Map& map, Posn p){
   Tile* newTile = map[p.first][p.second];
   // check if new square is walkable
   if(! newTile->isWalkable()){
-    throw "Invalid move";
+      string s = "Invalid Move. Target cannot be walked on!";
+      throw s;
   }
+  // check if new square is gold
+   if(Gold * gold = dynamic_cast<Gold *>(newTile)){
+     gold->affect(*this);
+     map[position.first][position.second] = curTile;
+     delete newTile;
+     curTile = new Brick{'.', true};
+     map[p.first][p.second] = this;
+     position = p;
+     return;
+   }
+  // check if new sqaure is stair
+
   // walk to new square
   map[position.first][position.second] = curTile;
   curTile = newTile;
-  newTile = this;
+  map[p.first][p.second] = this;
   position = p;
 }
 
 void PC::checkSurroundings(Map& map){
   // check neighbour squares and add to action the item spotted
-  for(int i = position.first - 1; i < position.first + 2; ++i){
-    for(int j = position.second - 1; j < position.second + 2; ++j){
-      action << map[i][j]->beSpotted() << endl;
+    for (int i = position.first - 1; i < position.first + 2; ++i) {
+        for (int j = position.second - 1; j < position.second + 2; ++j) {
+            action << map[i][j]->beSpotted();
     }
   }
 }
@@ -74,7 +90,7 @@ void PC::beAttacked(Enemy& e){
   int d = damage(e.getAtk(), def);
   hp -= d;
   setDead();
-  action << e.getVisual() << " deals " << d << " damage to  PC" << endl;
+  action << e.getVisual() << " deals " << d << " damage to PC. ";
 }
 
 // PC is attacked by an elf
@@ -83,7 +99,7 @@ void PC::beAttacked(Elf& e){
   int d = damage(e.getAtk(), def);
   hp -= 2 * d;
   setDead();
-  action << e.getVisual() << " deals " << d << " + " << d << " damage to PC" << endl;
+  action << e.getVisual() << " deals " << d << " + " << d << " damage to PC. ";
 }
 
 // PC is attacked by an Orcs
@@ -91,7 +107,7 @@ void PC::beAttacked(Orcs& o){
   int d = damage(o.getAtk(), def);
   hp -= d;
   setDead();
-  action << o.getVisual() << " deals " << d << " damage to PC" << endl;
+  action << o.getVisual() << " deals " << d << " damage to PC. ";
 }
 
 

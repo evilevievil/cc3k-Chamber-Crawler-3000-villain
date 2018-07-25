@@ -15,6 +15,16 @@ void Merchant::attack(Tile* t){
 }
 
 
+void Merchant::beAttacked(PC& pc){
+  hostile = true;
+
+  int d = damage(pc.getAtk(), def);
+  hp -= d;
+  giveReward(pc);
+  reportDamage(d, pc.action);
+}
+
+
 void Merchant::checkSurroundings(Map& map){
   // if not hostile, just take a random move
   if(! hostile){
@@ -23,8 +33,8 @@ void Merchant::checkSurroundings(Map& map){
   }
 
   //check if pc is in one block radius
-  for(int i = position.first - 1; i < position.first + 2; ++i){
-    for(int j = position.second - 1; j < position.second + 2; ++j){
+  for (int i = position.first - 1; i < position.first + 2; ++i) {
+      for (int j = position.second - 1; j < position.second + 2; ++j) {
       if(map[i][j]->getVisual() == '@'){
 	// pc is in one block radius, attck it
 	attack(map[i][j]);
@@ -38,7 +48,7 @@ void Merchant::checkSurroundings(Map& map){
 
 
 void Merchant::resetHostile(){
-  hostile = true;
+  Merchant::hostile = true;
 }
 
 

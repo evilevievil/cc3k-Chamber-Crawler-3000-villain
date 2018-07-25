@@ -16,6 +16,7 @@ public:
   RH();
   ~RH();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 
@@ -30,6 +31,7 @@ public:
   BA();
   ~BA();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 
@@ -44,6 +46,7 @@ public:
   BD();
   ~BD();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 
@@ -58,6 +61,7 @@ public:
   PH();
   ~PH();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 
@@ -73,6 +77,7 @@ public:
   WA();
   ~WA();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 
@@ -87,6 +92,7 @@ public:
   WD();
   ~WD();
   std::string beSpotted() override;
+  static void setKnowsType(bool b);
 };
 
 #endif
