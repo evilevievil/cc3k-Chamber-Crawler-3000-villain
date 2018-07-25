@@ -7,6 +7,7 @@
 class Human: public Enemy{
 public:
 	void attack(Tile* pc) override;
+	void dropReward(Map& map) override;
 	Human();
 
 };

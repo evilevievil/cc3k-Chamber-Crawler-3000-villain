@@ -374,11 +374,19 @@ void Game::setFreeze(bool b) {
 
 void Game::oneTurn() {
     PC->checkSurroundings(map);
-    if (!freeze) {
-        for (int i = 0; i < enemies.size(); ++i) {
+    int toRemove = -1;
+    for (int i = 0; i < enemies.size(); ++i) {
+        if(enemies[i]->getDead()){
+            enemies[i]->dropReward(map);
+            toRemove = i;
+        }
+        if(! freeze){
             enemies[i]->checkSurroundings(map);
         }
     }
+    
+    if(toRemove > -1) enemies.erase(enemies.begin() +  toRemove);
+    
     PC->endTurnAction();
 }
 

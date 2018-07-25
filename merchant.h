@@ -9,6 +9,7 @@ class Merchant: public Enemy{
 public:
   void attack(Tile* pc) override;
   void beAttacked(PC& pc) override;
+  void dropReward(Map& map) override;
   void checkSurroundings(Map& map) override;
   static void resetHostile();
   Merchant();
