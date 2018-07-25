@@ -1,5 +1,7 @@
 #include "halfling.h"
+#include "vampire.h"
 #include <cstdlib>
+#include "pc.h"
 
 void Halfling::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){
@@ -13,7 +15,7 @@ void Halfling::attack(Tile* t){
 // this is attacked by a PC
 void Halfling::beAttacked(PC& pc){
   // PC's attack has 50% chance of missing
-  int missed = rand % 2;
+  int missed = rand() % 2;
   if(missed){
     pc.action << "PC's attack missed (" << hp << "hp). ";
     return;
@@ -28,7 +30,7 @@ void Halfling::beAttacked(PC& pc){
 // this is attacked by an vampire
 void Halfling::beAttacked(Vampire& pc){
   // PC's attack has 50% chance of missing
-  int missed = rand % 2;
+  int missed = rand() % 2;
   if(missed){
     pc.action << "PC's attack missed (" << hp << "hp). ";
     return;

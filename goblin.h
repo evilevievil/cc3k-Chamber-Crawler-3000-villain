@@ -8,7 +8,7 @@ class Goblin: public PC{
 public:
 	void attack(Tile* enemy) override;
 	void beAttacked(Orcs& o) override;
-	Goblin(Posn p, Tile* t);
+	Goblin();
 };
 
 #endif

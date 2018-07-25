@@ -1,8 +1,8 @@
 #ifndef _GOLDHOARD_H_
 #define _GOLDHOARD_H_
 #include "gold.h"
-#include "testpc.h"
 
+class PC;
 
 
 class SmallHoard: public Gold {

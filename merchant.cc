@@ -1,4 +1,6 @@
 #include "merchant.h"
+#include "pc.h"
+
 
 bool Merchant::hostile = false;
 

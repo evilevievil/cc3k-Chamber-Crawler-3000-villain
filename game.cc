@@ -1,32 +1,52 @@
 #include "game.h"
-#include "typedef.h"
-#include <ifstream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include "tile.h"
+#include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
+#include "slime.h"
+#include "human.h"
+#include "elf.h"
+#include "orcs.h"
+#include "dwarf.h"
+#include "dragon.h"
+#include "halfling.h"
+#include "merchant.h"
+#include "goldhoard.h"
+#include "potiontype.h"
+#include "brick.h"
+ 
 using namespace std;
 
 
-Game::Game(char pc, string file = "map.txt"){
+Game::Game(char pc, string file){
   ifstream f {file};
-  char c;
+  string line;
   for(int i = 0; i < 25; ++i){
-    map.push_back(vector<tile*>);
+    getline(f, line, '\0');
+    vector<Tile*> row;
+    map.push_back(row);
 
-    for(int j = 0; j < 79; ++j){
-      f >> c;s
+    for(char c : line){
       switch(c){
-	case '.' :
+	    case '.' :
           map[i].push_back(new Brick{c, true});
-	  break;
-	case '+' :
+	        break;
+	    case '+' :
           map[i].push_back(new Brick{c, true});
-	case '#' :
-	  map[i].push_back(new Brick{c, true});
-	case '\\' :
-	  map[i].push_back(new Brick{c, true});
-	default : //this tile is not walkable
-	  map[i].push_back(new Brick{c});
+          break;
+	    case '#' :
+          map[i].push_back(new Brick{c, true});
+          break;
+      case '\\' :
+          map[i].push_back(new Brick{c, true});
+          break;
+      default : //this tile is not walkable
+          map[i].push_back(new Brick{c});
+          break;
       }
     }
   }
@@ -59,8 +79,23 @@ Game::~Game(){
 }
 
 
-void Game::init(){ //initialization should create a random position for pc and calls refreshMap
-//call refreshMap to generate races/items
+void Game::restart(){ 
+  cleanMap();
+  delete PC;
+  floornum = 0;
+  ++floornum;
+  generatorStair();
+  generatorPotion();
+  generatorGold();
+  generatorEnemy(); 
+}
+
+
+void Game::enterFloor(){
+  if(floornum != 0){
+    cleanMap();
+  }
+  ++floornum;
   generatorStair();
   generatorPotion();
   generatorGold();
@@ -68,60 +103,77 @@ void Game::init(){ //initialization should create a random position for pc and c
 }
 
 
-//void Game::refreshMap(){
-//remove all the races/items on the map
+void Game::cleanMap(){
+  for(auto i : map) {
+    for(auto j : i) {
+      char v = j->getVisual();
+      if(v != '.' && v != '|' && v != '-' && v != '+' && v != '#' && v != ' '){
+        if(v != '@') delete j; // keep PC alive, delete all other stuff
 
-
-//use generator to generator races/items on the map
-
-
-//increase floor level
-
-//}
+        j = new Brick{'.', true};
+      }
+    } 
+  }
+  enemies.clear();
+}
 
 
 void Game::spawnAt(Posn p, Tile* t){
   map[p.first][p.second] = t;
 }
 
+Posn Game::dirpos(std::string d, Posn p) {
+  int x = p.first;
+  int y = p.second;
+  if(d == "no"){
+    return Posn{x,y+1};
+  }else if (d == "so"){
+    return Posn{x,y-1};
+  }else if (d == "ea"){
+     return Posn{x+1,y};
+  }else if (d == "we"){
+    return Posn{x-1,y};
+  }else if (d == "ne"){
+    return Posn{x+1,y+1};
+  }else if (d == "nw"){
+    return Posn{x-1,y+1};
+  }else if (d == "se"){
+    return Posn{x+1,y-1};
+  }else if (d == "sw"){
+    return Posn{x-1,y-1};
+  } else {throw "Invalid direction";}
+}
 
-void Game::movePc(Direction d){
-  int x= get<0>(PC->getPosn());
-  int y= get<1>(PC->getPosn());
-  if(d == Direction::no){
-     PC->move (map, Posn{x,y+1});
-  }else if (d == Direction::so){
-     PC->move (map, Posn{x,y-1});
-  }else if (d == Direction::ea){
-     PC->move (map, Posn{x+1,y});
-  }else if (d == Direction::we){
-     PC->move (map, Posn{x-1,y});
-  }else if (d == Direction::ne){
-     PC->move (map, Posn{x+1,y+1});
-  }else if (d == Direction::nw){
-     PC->move (map, Posn{x-1,y+1});
-  }else if (d == Direction::se){
-     PC->move (map, Posn{x+1,y-1});
-  }else if (d == Direction::sw){
-     PC->move (map, Posn{x-1,y-1});
-  }
+
+
+void Game::movePC(std::string d){
+  PC->move (map, dirpos(d, PC->getPosn()));
+  PC->action << "PC moves " << d << ". ";
 }
 
 void Game::moveEnemies(){
   for (auto i: enemies){
-    i->checkSurroundings();
+    i->checkSurroundings(map);
   }
 }
 
-void Game::usePotion(Posn p){
-
-  Tile * potiontile = map[p.first][p.second]; 
-  if (Potion *potion = dymamic_cast<Potion *>(potiontile)) {
-    potion->affect(*PC); //update action string after methods are completed
-  } else {throw "Invalid use potion";}
+void Game::PCAttack(string d){
+  Posn p = dirpos(d, PC->getPosn());
+  PC->attack(map[p.first][p.second]);
 }
 
-Posn generatorpos() {
+void Game::usePotion(std::string d){
+  Posn p = dirpos(d, PC->getPosn());
+  Tile * potiontile = map[p.first][p.second];
+  if (Potion *potion = dynamic_cast<Potion *>(potiontile)) {
+    potion->affect(*PC); //update action string after methods are completed
+  } 
+  else {
+    throw "Invalid use potion";
+  }
+}
+
+Posn Game::generatorpos() {
   int num, x, y, h, w, s, n, m;
   srand(time(NULL));
   do{
@@ -175,71 +227,70 @@ Posn generatorpos() {
   }
     n = rand() % w;
     m = rand() % h;
-  } while (!map[x+n][y=m]->isWalkable)
+  } while (map[x+n][y=m]->getVisual() != '.');
   Posn p{x+n, y+m};
   return p;
 }
 
 void Game::generatorStair() {
-  Posn &p = generatorpos();
+  Posn p = generatorpos();
   int px = p.first;
   int py = p.second;
-  Tile *newtile = new Tile{'\', true};
-  swap(newtile, map[x[y]]);
+  Tile *newtile = new Brick{'\\', true};
+  swap(newtile, map[px][py]);
   delete newtile;
 }
 
 void Game::generatorEnemy(){
-  srand(time(NULL));
   int num = rand() % 18 + 1;
-  Posn &p = generatorpos();
+  Posn p = generatorpos();
+  Tile* newtile;
   int px = p.first;
   int py = p.second;
   if (1<=num && num<=4) {
-    Tile* newtile = new Human{}; 
+    newtile = new Human{}; 
   } else if (5<=num && num<=7) {
-    Tile* newtile = new Dwarf{};
+    newtile = new Dwarf{};
   } else if (8<=num && num<=12) {
-    Tile* newtile = new Halfling{};
+    newtile = new Halfling{};
   } else if (13<=num && num<=14) {
-    Tile* newtile = new Elf{}; 
+    newtile = new Elf{}; 
   } else if (15<=num && num<=16) {
-    Tile* newtile = new Orc{};
+    newtile = new Orcs{};
   } else if (17<=num && num<=18) {
-    Tile *newtile = new Merchant{};
+    newtile = new Merchant{};
   } 
-  swap(newtile, map[x[y]]);
+  swap(newtile, map[px][py]);
   delete newtile;
 }
 
 void Game::generatorGold(){
-  srand(time(NULL));
   int num = rand() % 8 + 1;
-  Posn &p = generatorpos();
+  Posn p = generatorpos();
+  Tile* newtile;
   int px = p.first;
   int py = p.second;
+
   if (1<=num && num<=5) {
-    Tile* newtile = new NormalHoard{}; 
+    newtile = new NormalHoard{}; 
   } else if (6<=num && num<=7) {
-    Tile* newtile = new SmallHoard{};
+    newtile = new SmallHoard{};
   } else if (num==8) {
     int pn = px-1;
     int pm = py-1;
     for (;pn<px+2;++pn) {
       for (;pm<py+2;++pm) {
-        if (map[pn][pm]->isWalkable) {break;}
+        if (map[pn][pm]->getVisual() == '.') {break;}
       }
-      if (map[pn][pm]->isWalkable) {break;}
+      if (map[pn][pm]->getVisual() == '.') {break;}
     }
-    Tile* newtile = new DragonHoard{}; 
-    Tile* dragontile = new Dragon{};
-    swap(newtile, map[px][py]);
+    newtile = new DragonHoard{}; 
+    Tile* dragontile = new Dragon{newtile};
     swap(dragontile, map[pn][pm]);
     delete dragontile;
-    delete newtile; 
-    return;
   } 
-  swap(newtile, map[x[y]]);
+
+  swap(newtile, map[px][py]);
   delete newtile;
 }
 
@@ -247,41 +298,62 @@ void Game::generatorPotion(){
 
   srand(time(NULL));
   int num = rand() % 6 + 1;
-  Posn &p = generatorpos();
+  Posn p = generatorpos();
+  Tile* newtile;
   int px = p.first;
   int py = p.second;
   if (1==num) {
-    Tile* newtile = new RH{}; 
+    newtile = new RH{}; 
   } else if (2==num) {
-    Tile* newtile = new BA{};
+    newtile = new BA{};
   } else if (3==num) {
-    Tile* newtile = new BD{};
+    newtile = new BD{};
   } else if (4==num) {
-    Tile* newtile = new PH{}; 
+    newtile = new PH{}; 
   } else if (5==num) {
-    Tile* newtile = new WA{};
+    newtile = new WA{};
   } else if (6==num) {
-    Tile *newtile = new WD{};
+    newtile = new WD{};
   } 
-  swap(newtile, map[x[y]]);
+  swap(newtile, map[px][py]);
   delete newtile;
 }
 
 
-void Game::printStats(){
-  string hero= pc->getName();
-  int gold= pc->getGold();
-  int hp= pc->getHp();
-  int atk=pc->getAtk();
-  int def=pc->getDef();
-
-  cout<<"Race: "<<hero<<"  Gold: "<< gold<< "                                         Floor "<< floornum<<endl;
-  cout<<"HP: "<< hp<<endl;
-  cout<<"ATK: "<<atk<<endl;
-  cout<<"DEF: "<<def<<endl;
-  cout<<"Action :"<<pc->action.str()<<endl;
+void Game::setFreeze(bool b){
+  freeze = b;
 }
 
+void Game::oneTurn(){
+  if(! freeze){
+    for(int i = 0; ++i; i < enemies.size()){
+      enemies[i]->checkSurroundings(map);
+    }
+  }
+  PC->endTurnAction();
+}
 
+ostream& operator<<(ostream& out, Game &g){
+   for(auto i : g.map){
+     for(auto j : i){
+       cout << j->getVisual();
+     }
+     cout << endl;
+   }
+
+  string hero= g.PC->getName();
+  int gold = g.PC->getGold();
+  int hp = g.PC->getHp();
+  int atk = g.PC->getAtk();
+  int def = g.PC->getDef();
+
+  cout << "Race: " << hero << "  Gold: " << gold << "   Floor " << g.floornum << endl;
+  cout << "HP: " << hp << endl;
+  cout << "ATK: " << atk << endl;
+  cout << "DEF: " << def << endl;
+  // cout << "Action :" << g.PC->action.str();
+  // g.PC->action.str("");
+  // g.PC->action.clear();
+}
 
 

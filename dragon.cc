@@ -1,4 +1,6 @@
 #include "dragon.h"
+#include "pc.h"
+
 
 void Dragon::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){

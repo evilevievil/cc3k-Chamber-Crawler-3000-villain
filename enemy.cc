@@ -1,4 +1,6 @@
 #include "enemy.h"
+#include "vampire.h"
+#include "goblin.h"
 #include "cstdlib"
 #include <sstream>
 using namespace std;

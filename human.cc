@@ -1,4 +1,6 @@
 #include "human.h"
+#include "pc.h"
+
 
 void Human::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){
