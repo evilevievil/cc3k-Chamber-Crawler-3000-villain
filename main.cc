@@ -52,13 +52,33 @@ int main (int argc, char* argv[]){
 		else{
 			cout << "invalid command" << endl;
 		}
+
 		cout << g << endl;
+		if(g.won()){
+			cout << "Restart game(y or n)?" << endl;
+            char c;
+			
+			while(1){
+				cin>>c;
+            if (c == 'y') {
+				g.restart();
+				break;
+			} 
+            else if (c == 'n'){
+				return 0;
+			}
+			else {
+				cout << "Invalid command, Choose between y or n" << endl;
+			}
+			}
+			
 		}
-		catch(string s){ 
-			cout << g << s << endl;
 		}
-		catch(const char* s){
-			cout << g << s << endl;
+		catch(string err){ 
+			cout << g << err << endl;
+		}
+		catch(const char* err){
+			cout << g << err << endl;
 		}
 	}
 }
