@@ -45,4 +45,4 @@ void Halfling::beAttacked(Vampire& pc){
 }
 
 Halfling::Halfling():
-  Enemy{'E', 100, 100, 15, 20} {}
+  Enemy{'L', 100, 100, 15, 20} {}
