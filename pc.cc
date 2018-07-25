@@ -4,6 +4,7 @@
 #include "potiontype.h"
 #include "goldhoard.h"
 #include "enemy.h"
+#include "brick.h"
 #include <string>
 using namespace std;
 
@@ -48,9 +49,21 @@ void PC::move(Map& map, Posn p){
   Tile* newTile = map[p.first][p.second];
   // check if new square is walkable
   if(! newTile->isWalkable()){
-      string s = "Invalid Move. Target cannot be walk on!";
+      string s = "Invalid Move. Target cannot be walked on!";
       throw s;
   }
+  // check if new square is gold
+   if(Gold * gold = dynamic_cast<Gold *>(newTile)){
+     gold->affect(*this);
+     map[position.first][position.second] = curTile;
+     delete newTile;
+     curTile = new Brick{'.', true};
+     map[p.first][p.second] = this;
+     position = p;
+     return;
+   }
+  // check if new sqaure is stair
+
   // walk to new square
   map[position.first][position.second] = curTile;
   curTile = newTile;
