@@ -1,4 +1,5 @@
 #include "troll.h"
+#include "enemy.h"
 
 void Troll::endTurnAction(){
   restoreHp();
@@ -13,4 +14,4 @@ void Troll::attack(Tile* t){
   }
 }
 
-Troll::Troll(): PC{120, 120, 25, 15} {}
+Troll::Troll(): PC{120, 120, 25, 15, "Troll"} {}

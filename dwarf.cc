@@ -1,4 +1,7 @@
 #include "dwarf.h"
+#include "vampire.h"
+#include "pc.h"
+
 
 void Dwarf::attack(Tile* t){
   if(PC* pc = dynamic_cast<PC*>(t)){

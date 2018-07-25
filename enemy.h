@@ -1,11 +1,12 @@
 #ifndef _ENEMY_H_
 #define _ENEMY_H_
 #include "race.h"
-#include "pc.h"
 #include "typedef.h"
-#include "vampire.h"
-#include "goblin.h"
 #include <sstream>
+
+class Vampire;
+class Goblin;
+class PC;
 
 class Enemy: public Race{	
 public:

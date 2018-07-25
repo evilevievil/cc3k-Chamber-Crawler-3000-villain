@@ -2,13 +2,26 @@
 #define _PC_H_
 #include "race.h"
 #include "typedef.h"
-#include "elf.h"
-#include "orcs.h"
-#include "potiontype.h"
+#include <string>
 #include <sstream>
+
+class Enemy;
+class Elf;
+class Orcs;
+class BA;
+class BD;
+class RH;
+class WA;
+class WD;
+class PH;
+class SmallHoard;
+class NormalHoard;
+class MerchantHoard;
+class DragonHoard;
 
 class PC: public Race{
 protected:
+	std::string name;
 	int gold;
 	int atkHistory, defHistory;
 	bool dead = false;
@@ -22,6 +35,7 @@ public:
 	void setDead();
 	void setCurTile(Tile* t);
 	virtual int getScore();
+	std::string getName();
 
 	void restoreHp(int i = 5);
 	void addGold(int i = 5);
@@ -48,7 +62,7 @@ public:
 	virtual void beRich(MerchantHoard &gold);
 	virtual void beRich(DragonHoard &gold);
 
-	PC(int maxhp, int hp, int atk, int def);
+	PC(int maxhp, int hp, int atk, int def, std::string hero);
 
 
 };

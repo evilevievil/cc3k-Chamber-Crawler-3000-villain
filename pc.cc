@@ -1,4 +1,9 @@
 #include "pc.h"
+#include "elf.h"
+#include "orcs.h"
+#include "potiontype.h"
+#include "goldhoard.h"
+#include "enemy.h"
 using namespace std;
 
 
@@ -12,6 +17,10 @@ int PC::getScore(){
 
 bool PC::isDead(){
   return dead;
+}
+
+string PC::getName(){
+  return name;
 }
 
 void PC::setCurTile(Tile* t){
@@ -38,7 +47,6 @@ void PC::move(Map& map, Posn p){
   Tile* newTile = map[p.first][p.second];
   // check if new square is walkable
   if(! newTile->isWalkable()){
-    action << "this is a invalid move." << endl;
     throw "Invalid move";
   }
   // walk to new square
@@ -87,35 +95,35 @@ void PC::beAttacked(Orcs& o){
 }
 
 
-PC::PC(int maxhp, int hp, int atk, int def): 
-  Race{'@', maxhp, hp, atk, def}, gold{0}, atkHistory{0}, defHistory{0} {}
+PC::PC(int maxhp, int hp, int atk, int def, string hero): 
+  Race{'@', maxhp, hp, atk, def},name{hero}, gold{0}, atkHistory{0}, defHistory{0} {}
 
 
 
 //overloaded methods for item(gold and potion)
 
-virtual void beAffected(BA &potion) {
+void PC::beAffected(BA &potion) {
   atk = atk + BA_effect;
   atkHistory = atkHistory + BA_effect;
 }
 
 
 
-virtual void beAffected(BD &potion) {
+void PC::beAffected(BD &potion) {
   def = def + BD_effect;
   defHistory = defHistory + BD_effect;
 }
 
 
 
-virtual void beAffected(RH &potion) {
+void PC::beAffected(RH &potion) {
   int tmpHP = hp + RH_effect;
   if (tmpHP > maxhp) {hp = maxhp;}
 }
 
 
 
-virtual void beAffected(WA &potion) {
+void PC::beAffected(WA &potion) {
   atk = atk + WA_effect;
   atkHistory = atkHistory + WA_effect;
 }
@@ -123,35 +131,35 @@ virtual void beAffected(WA &potion) {
 
 
 
-virtual void beAffected(WD &potion) {
+void PC::beAffected(WD &potion) {
   def = def + WD_effect;
   defHistory = defHistory + WD_effect;
 }
 
 
 
-virtual void beAffected(PH &potion) {
+void PC::beAffected(PH &potion) {
   int tmpHP = hp + PH_effect;
   if (tmpHP <= 0) {hp = 0;}
 }
 
 
-virtual void beRich(SmallHoard &gold) {
- gold = gold + Small_effect; 
+void PC::beRich(SmallHoard &gold) {
+ this->gold = this->gold + Small_effect; 
 }
 
 
 
-virtual void beRich(NormalHoard &gold) {
-  gold = gold + Normal_effect;
+void PC::beRich(NormalHoard &gold) {
+ this->gold = this->gold + Normal_effect;
 }
 
 
-virtual void beRich(MerchantHoard &gold) {
-  gold = gold + Merchant_effect;
+void PC::beRich(MerchantHoard &gold) {
+ this->gold = this->gold + Merchant_effect;
 }
 
 
-virtual void beRich(DragonHoard &gold){
-  gold = gold + Dragon_effect;
+void PC::beRich(DragonHoard &gold){
+ this->gold = this->gold + Dragon_effect;
 }

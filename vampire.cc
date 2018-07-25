@@ -1,4 +1,5 @@
 #include "vampire.h"
+#include "enemy.h"
 
 void Vampire::attack(Tile* t){
   if(Enemy* e = dynamic_cast<Enemy*>(t)){
@@ -9,4 +10,4 @@ void Vampire::attack(Tile* t){
   }
 }
 
-Vampire::Vampire(): PC{9999, 50, 25, 25} {}
+Vampire::Vampire(): PC{9999, 50, 25, 25, "Vampire"} {}

@@ -3,7 +3,8 @@
 
 #include "enemy.h"
 #include "typedef.h"
-#include "vampire.h"
+
+class Vampire;
 
 class Dwarf: public Enemy{
 public:

@@ -1,4 +1,5 @@
 #include "goldhoard.h"
+#include "pc.h"
 
 void SmallHoard::affect(PC &pc) {
   pc.beRich(*this); 

@@ -1,4 +1,6 @@
 #include "drow.h"
+#include "enemy.h"
+#include "elf.h"
 using namespace std;
 
 void Drow::attack(Tile* t){
@@ -17,32 +19,32 @@ void Drow::beAttacked(Elf& e){
   action << e.getVisual() << " deals " << d << " damage to PC" << endl;
 }
 
-Drow::Drow(): PC{150, 150, 25, 15} {}
+Drow::Drow(): PC{150, 150, 25, 15, "Drow"} {}
 
 //override + overloaded methods for potion effects
 
-void beAffected(BA &potion) override {
+void Drow::beAffected(BA &potion) {
   atk = atk + BA_effect + (BA_effect / 2);
   atkHistory = atkHistory + BA_effect + (BA_effect / 2);
 }
 
 
 
-void beAffected(BD &potion) override {
+void Drow::beAffected(BD &potion) {
   def = def + BD_effect + (BD_effect / 2);
   defHistory = defHistory + BD_effect + (BD_effect / 2);
 }
 
 
 
-void beAffected(RH &potion) override {
+void Drow::beAffected(RH &potion) {
   int tmp = hp + RH_effect + (RH_effect / 2);
   if (tmp > maxhp) {hp = maxhp;}
 }
 
 
 
-void beAffected(WA &potion) override {
+void Drow::beAffected(WA &potion) {
   atk = atk + WA_effect + (WA_effect / 2);
   atkHistory = atkHistory + WA_effect + (WA_effect / 2);
 }
@@ -50,14 +52,14 @@ void beAffected(WA &potion) override {
 
 
 
-void beAffected(WD &potion) override{
+void Drow::beAffected(WD &potion) {
   def = def + WD_effect;
   defHistory = defHistory + WD_effect + (WD_effect / 2);
 }
 
 
 
-void beAffected(PH &potion) override {
+void Drow::beAffected(PH &potion) {
   int tmp = hp + PH_effect + (PH_effect / 2);
   if (tmp <= 0) {hp = 0;}
 }
