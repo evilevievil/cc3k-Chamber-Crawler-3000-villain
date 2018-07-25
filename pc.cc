@@ -14,7 +14,7 @@ bool PC::isDead(){
 }
 
 // set PC's dead to true if PC's hp falls below 0
-void setDead(){
+void PC::setDead(){
   if(hp <= 0){
     hp = 0;
     dead = true;

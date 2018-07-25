@@ -1,6 +1,7 @@
 #ifndef _RACE_H_
 #define _RACE_H_
 #include <utility>
+#include <string>
 #include "tile.h"
 #include "typedef.h"
 

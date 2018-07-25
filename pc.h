@@ -11,7 +11,7 @@ protected:
 	bool dead = false;
 
 public:
-	ostringstream action; //public field that records PC's actions in a turn
+	std::ostringstream action; //public field that records PC's actions in a turn
 
 	int getGold();
 	bool isDead();
