@@ -8,8 +8,9 @@ class Merchant: public Enemy{
   static bool hostile;
 public:
   void attack(Tile* pc) override;
+  void beAttacked(PC& pc) override;
   void checkSurroundings(Map& map) override;
-  void resetHostile();
+  static void resetHostile();
   Merchant();
 
 };

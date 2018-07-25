@@ -22,6 +22,8 @@ std::string RH::beSpotted() {
   return RH::knowsType? "RH potion spotted. " : "Unknown potion spotted. ";
 }
 
+void RH::setKnowsType(bool b) {RH::knowsType = b;}
+
 //BA
 void BA::affect(PC &pc) {
   pc.beAffected(*this);
@@ -36,6 +38,8 @@ BA::~BA() {}
 std::string BA::beSpotted() {
   return BA::knowsType?  "BA potion spotted. " :  "Unknown potion spotted. ";
 }
+
+void BA::setKnowsType(bool b) {BA::knowsType = b;}
 
 //BD
 void BD::affect(PC &pc) {
@@ -52,6 +56,7 @@ std::string BD::beSpotted() {
   return BD::knowsType? "BD potion spotted. " : "Unknown potion spotted. ";
 }
 
+void BD::setKnowsType(bool b) {BD::knowsType = b;}
 
 //PH
 void PH::affect(PC &pc) {
@@ -68,6 +73,7 @@ std::string PH::beSpotted() {
   return PH::knowsType? "PH potion spotted. " : "Unknown potion spotted. ";
 }
 
+void PH::setKnowsType(bool b) {PH::knowsType = b;}
 
 //WA
 void WA::affect(PC &pc) {
@@ -84,6 +90,7 @@ std::string WA::beSpotted() {
   return WA::knowsType? "WA potion spotted. " : "Unknown potion spotted. ";
 }
 
+void WA::setKnowsType(bool b) {WA::knowsType = b;}
 
 //WD
 void WD::affect(PC &pc) {
@@ -100,3 +107,4 @@ std::string WD::beSpotted() {
   return WD::knowsType? "WD potion spotted. " : "Unknown potion spotted. ";
 }
 
+void WD::setKnowsType(bool b) {WD::knowsType = b;}
