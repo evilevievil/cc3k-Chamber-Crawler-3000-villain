@@ -4,19 +4,27 @@
 using namespace std;
 
 int main (int argc, char* argv[]){
-	srand(stoi(argv[1]));
+	string filename;
+
+	if(argc == 1){
+		filename = argv[1];
+	} else if(argc == 2){
+		filename = argv[1];
+		srand(stoi(argv[2]));
+	}
+
 	string welcome = "Hello Welcome to ChamberCrawler3000!";
 	string heroes = "		Shade(s)	Drow(d)		Vampire(v)	Goblin(g) 	Troll(t)";
 	string hp = "HP: 	125				150				50					110					120";
 	string atk = "ATK:     25				 25				25					 15					 25";
 	string def = "DEF:	 25				 25				25					 20					 15";
-	string choosePc = "Please choose your hero charcter! (s , d, v, g, t, l)";
+	string choosePc = "Please choose your hero charcter! (s, d, v, g, t, l)";
 	cout << welcome << endl;
 	cout << choosePc << endl;
 
 	char c;
 	cin >> c; //reads in user input to determine which hero the players want to play. 
-	Game g {c};
+	Game g {c, filename};
 	g.enterFloor();
 	cout << g << "player spawned!" << endl;
 	bool b = true;
@@ -69,6 +77,7 @@ int main (int argc, char* argv[]){
 				cout << "Invalid command, Choose between y or n" << endl;
 			}
 			}
+			cout << g << endl;
 			
 		}
 
@@ -87,6 +96,7 @@ int main (int argc, char* argv[]){
 					cout << "Invalid comman. Choose between r ot q" << endl;
 				}
 			}
+			cout << g << endl;
 			
 		}
 		}

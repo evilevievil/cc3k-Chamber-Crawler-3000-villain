@@ -83,7 +83,7 @@ bool Game::won() {
 }
 
 
-bool Game::dead(){
+bool Game::dead() {
     return PC->getDead();
 }
 
@@ -92,30 +92,38 @@ void Game::restart() {
     cleanMap();
     delete PC;
     floornum = 1;
+
+    cout << "Please choose your hero charcter! (s , d, v, g, t, l)" << endl;
     char pc;
-    while (true){
-        cin >> pc;
-        switch (pc) {
-            case 's': PC = new Shade();
-                break;
-            case 'd': PC = new Drow();
-                break;
-            case 'v': PC = new Vampire();
-                break;
-            case 'g': PC = new Goblin();
-                break;
-            case 't': PC = new Troll();
-                break;
-            default: cout << "Invalid Character. Please choose again." << endl;
-                break;
-        }
+    cin >> pc;
+    switch (pc) {
+    case 's': PC = new Shade();
+        break;
+    case 'd': PC = new Drow();
+        break;
+    case 'v': PC = new Vampire();
+        break;
+    case 'g': PC = new Goblin();
+        break;
+    case 't': PC = new Troll();
+        break;
+    default: cout << "Invalid Character. Please choose again." << endl;
+        break;
     }
+    PC->action << "Player spawned!";
 
     Merchant::resetHostile();
+    BA::setKnowsType(false);
+    BD::setKnowsType(false);
+    PH::setKnowsType(false);
+    WA::setKnowsType(false);
+    WD::setKnowsType(false);
+    RH::setKnowsType(false);
+
     generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+    for (int i = 0; i < 10; ++i) { generatorPotion(); }
+    for (int i = 0; i < 10; ++i) { generatorGold(); }
+    for (int i = 0; i < 20; ++i) { generatorEnemy(); }
 }
 
 
@@ -125,9 +133,9 @@ void Game::enterFloor() {
     }
     ++floornum;
     generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+    for (int i = 0; i < 10; ++i) { generatorPotion(); }
+    for (int i = 0; i < 10; ++i) { generatorGold(); }
+    for (int i = 0; i < 20; ++i) { generatorEnemy(); }
 }
 
 
@@ -351,13 +359,15 @@ void Game::generatorGold() {
         int pn = px - 1;
         int pm = py - 1;
         for (;pn < px + 2; ++pn) {
-            for (;pm<py + 2;++pm) {
+            for (;pm < py + 2;++pm) {
                 if (map[pm][pn]->getVisual() == '.') { break; }
             }
             if (map[pm][pn]->getVisual() == '.') { break; }
         }
         newtile = new DragonHoard{};
         Tile* dragontile = new Dragon{ Posn{ pm, pn } };
+        Enemy* e = dynamic_cast<Dragon*>(dragontile);
+        enemies.push_back(e);
         swap(dragontile, map[pm][pn]);
         delete dragontile;
     }

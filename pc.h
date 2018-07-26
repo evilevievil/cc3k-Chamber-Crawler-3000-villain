@@ -61,7 +61,7 @@ public:
 	virtual void beRich(DragonHoard &gold);
 
 	PC(int maxhp, int hp, int atk, int def, std::string hero);
-
+	~PC();
 
 };
 
