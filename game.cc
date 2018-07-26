@@ -78,21 +78,22 @@ Game::~Game() {
 
 }
 
-bool Game::won(){
+bool Game::won() {
     return win;
 }
 
 void Game::cleanMap() {
-    for (auto i : map) {
-        for (auto j : i) {
-            char v = j->getVisual();
+    for (int i = 0; i < 25; ++i) {
+        for (int j = 0; j < 79; ++j) {
+            char v = map[i][j]->getVisual();
             if (v != '.' && v != '|' && v != '-' && v != '+' && v != '#' && v != ' ') {
-                if (v != '@') {delete j;} // keep PC alive, delete all other stuff
+                if (v != '@') { delete map[i][j]; } // keep PC alive, delete all other stuff
 
-                j = new Brick{ '.', true };
+                map[i][j] = new Brick{ '.', true };
             }
         }
     }
+
     enemies.clear();
 }
 
@@ -114,18 +115,12 @@ void Game::enterFloor() {
         cleanMap();
     }
     ++floornum;
-    generatorStair(); 
+    generatorStair();
     for (int i = 0; i<10; ++i) { generatorPotion(); }
     for (int i = 0; i<10; ++i) { generatorGold(); }
     for (int i = 0; i<20; ++i) { generatorEnemy(); }
 }
 
-
-
-
-void Game::spawnAt(Posn p, Tile* t) {
-    map[p.first][p.second] = t;
-}
 
 Posn Game::dirpos(std::string d, Posn p) {
     int row = p.first;
@@ -163,16 +158,18 @@ void Game::movePC(std::string d) {
     Posn p = PC->getPosn();
     Posn np = dirpos(d, p);
     if (map[np.first][np.second]->getVisual() == '\\') {
-        if(floornum == 4) {
+        if (floornum == 4) {
             PC->action << "You completed all 4 levels! Your score is: " << PC->getScore();
             win = true;
-        } else {
-          enterFloor();
-          PC->action << "PC enters new level. ";
         }
-    } else {
-      PC->move(map, np);
-      PC->action << "PC moves " << d << ". ";
+        else {
+            enterFloor();
+            PC->action << "PC enters new level. ";
+        }
+    }
+    else {
+        PC->move(map, np);
+        PC->action << "PC moves " << d << ". ";
     }
 }
 
@@ -270,9 +267,9 @@ void Game::allocatorPC(int num) {
 
 void Game::generatorStair() {
     int num = rand();
-    allocatorPC(num%5);
+    allocatorPC(num % 5);
     ++num;
-    Posn p = generatorpos(num%5);
+    Posn p = generatorpos(num % 5);
     int py = p.first;
     int px = p.second;
     Tile *newtile = new Brick{ '\\', true };
@@ -282,7 +279,7 @@ void Game::generatorStair() {
 
 void Game::generatorEnemy() {
     int num = rand() % 18 + 1;
-    Posn p = generatorpos(rand()%5);
+    Posn p = generatorpos(rand() % 5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
@@ -313,7 +310,7 @@ void Game::generatorEnemy() {
 
 void Game::generatorGold() {
     int num = rand() % 8 + 1;
-    Posn p = generatorpos(rand()%5);
+    Posn p = generatorpos(rand() % 5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
@@ -334,7 +331,7 @@ void Game::generatorGold() {
             if (map[pm][pn]->getVisual() == '.') { break; }
         }
         newtile = new DragonHoard{};
-        Tile* dragontile = new Dragon{ Posn{pm, pn} };
+        Tile* dragontile = new Dragon{ Posn{ pm, pn } };
         swap(dragontile, map[pm][pn]);
         delete dragontile;
     }
@@ -346,7 +343,7 @@ void Game::generatorGold() {
 void Game::generatorPotion() {
 
     int num = rand() % 6 + 1;
-    Posn p = generatorpos(rand()%5);
+    Posn p = generatorpos(rand() % 5);
     Tile* newtile;
     int py = p.first;
     int px = p.second;
@@ -358,7 +355,7 @@ void Game::generatorPotion() {
     else if (2 == num) {
         newtile = new BA{};
         BA *ba = dynamic_cast<BA *>(newtile);
-        ba->setKnowsType(false);       
+        ba->setKnowsType(false);
     }
     else if (3 == num) {
         newtile = new BD{};
@@ -393,17 +390,17 @@ void Game::oneTurn() {
     PC->checkSurroundings(map);
     int toRemove = -1;
     for (int i = 0; i < enemies.size(); ++i) {
-        if(enemies[i]->getDead()){
+        if (enemies[i]->getDead()) {
             enemies[i]->dropReward(map);
             toRemove = i;
         }
-        if(! freeze){
+        if (!freeze && toRemove != i) {
             enemies[i]->checkSurroundings(map);
         }
     }
-    
-    if(toRemove > -1) enemies.erase(enemies.begin() +  toRemove);
-    
+
+    if (toRemove > -1) enemies.erase(enemies.begin() + toRemove);
+
     PC->endTurnAction();
 }
 
