@@ -82,6 +82,55 @@ bool Game::won() {
     return win;
 }
 
+
+bool Game::dead(){
+    return PC->getDead();
+}
+
+
+void Game::restart() {
+    cleanMap();
+    delete PC;
+    floornum = 1;
+    char pc;
+    while (true){
+        cin >> pc;
+        switch (pc) {
+            case 's': PC = new Shade();
+                break;
+            case 'd': PC = new Drow();
+                break;
+            case 'v': PC = new Vampire();
+                break;
+            case 'g': PC = new Goblin();
+                break;
+            case 't': PC = new Troll();
+                break;
+            default: cout << "Invalid Character. Please choose again." << endl;
+                break;
+        }
+    }
+
+    Merchant::resetHostile();
+    generatorStair();
+    for (int i = 0; i<10; ++i) { generatorPotion(); }
+    for (int i = 0; i<10; ++i) { generatorGold(); }
+    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+}
+
+
+void Game::enterFloor() {
+    if (floornum != 0) {
+        cleanMap();
+    }
+    ++floornum;
+    generatorStair();
+    for (int i = 0; i<10; ++i) { generatorPotion(); }
+    for (int i = 0; i<10; ++i) { generatorGold(); }
+    for (int i = 0; i<20; ++i) { generatorEnemy(); }
+}
+
+
 void Game::cleanMap() {
     for (int i = 0; i < 25; ++i) {
         for (int j = 0; j < 79; ++j) {
@@ -95,30 +144,6 @@ void Game::cleanMap() {
     }
 
     enemies.clear();
-}
-
-void Game::restart() {
-    cleanMap();
-    delete PC;
-    floornum = 0;
-    ++floornum;
-    generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
-}
-
-
-
-void Game::enterFloor() {
-    if (floornum != 0) {
-        cleanMap();
-    }
-    ++floornum;
-    generatorStair();
-    for (int i = 0; i<10; ++i) { generatorPotion(); }
-    for (int i = 0; i<10; ++i) { generatorGold(); }
-    for (int i = 0; i<20; ++i) { generatorEnemy(); }
 }
 
 
@@ -170,6 +195,7 @@ void Game::movePC(std::string d) {
     else {
         PC->move(map, np);
         PC->action << "PC moves " << d << ". ";
+        oneTurn();
     }
 }
 
