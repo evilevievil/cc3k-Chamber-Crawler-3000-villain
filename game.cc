@@ -82,20 +82,11 @@ bool Game::won() {
     return win;
 }
 
-void Game::cleanMap() {
-    for (int i = 0; i < 25; ++i) {
-        for (int j = 0; j < 79; ++j) {
-            char v = map[i][j]->getVisual();
-            if (v != '.' && v != '|' && v != '-' && v != '+' && v != '#' && v != ' ') {
-                if (v != '@') { delete map[i][j]; } // keep PC alive, delete all other stuff
 
-                map[i][j] = new Brick{ '.', true };
-            }
-        }
-    }
-
-    enemies.clear();
+bool Game::dead(){
+    return PC->getDead();
 }
+
 
 void Game::restart() {
     cleanMap();
@@ -109,7 +100,6 @@ void Game::restart() {
 }
 
 
-
 void Game::enterFloor() {
     if (floornum != 0) {
         cleanMap();
@@ -119,6 +109,22 @@ void Game::enterFloor() {
     for (int i = 0; i<10; ++i) { generatorPotion(); }
     for (int i = 0; i<10; ++i) { generatorGold(); }
     for (int i = 0; i<20; ++i) { generatorEnemy(); }
+}
+
+
+void Game::cleanMap() {
+    for (int i = 0; i < 25; ++i) {
+        for (int j = 0; j < 79; ++j) {
+            char v = map[i][j]->getVisual();
+            if (v != '.' && v != '|' && v != '-' && v != '+' && v != '#' && v != ' ') {
+                if (v != '@') { delete map[i][j]; } // keep PC alive, delete all other stuff
+
+                map[i][j] = new Brick{ '.', true };
+            }
+        }
+    }
+
+    enemies.clear();
 }
 
 
@@ -170,6 +176,7 @@ void Game::movePC(std::string d) {
     else {
         PC->move(map, np);
         PC->action << "PC moves " << d << ". ";
+        oneTurn();
     }
 }
 

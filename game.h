@@ -21,11 +21,14 @@ class Game {
 public:
     Game(char pc, std::string file = "map.txt");
     ~Game();
+
     bool won();
+    bool dead();
+
     void restart();
     void enterFloor(); //check if win in this method
     void cleanMap();
-    void spawnAt(Posn p, Tile* t);
+
     Posn dirpos(std::string d, Posn p);
     void movePC(std::string d);
     void moveEnemies();

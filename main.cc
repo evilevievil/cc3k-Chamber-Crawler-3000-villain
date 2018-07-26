@@ -27,7 +27,6 @@ int main (int argc, char* argv[]){
 		if(s == "no" || s == "so" || s == "ea" || s == "we" || 
 		s == "ne" || s == "nw" || s == "se" || s == "sw"){
 			g.movePC(s);
-			g.oneTurn();
 		}
 		else if(s == "a"){
 			cin >> s;
@@ -56,10 +55,9 @@ int main (int argc, char* argv[]){
 		cout << g << endl;
 		if(g.won()){
 			cout << "Restart game(y or n)?" << endl;
-            char c;
 			
 			while(1){
-				cin>>c;
+				cin >> c;
             if (c == 'y') {
 				g.restart();
 				break;
@@ -70,6 +68,24 @@ int main (int argc, char* argv[]){
 			else {
 				cout << "Invalid command, Choose between y or n" << endl;
 			}
+			}
+			
+		}
+
+		if(g.dead()){
+			cout << "PC is killed. Do you want to restart(r) or quit(q)?" << endl;
+			while(true){
+				cin >> c;
+				if(c == 'r'){
+					g.restart();
+					break;
+				}
+				else if(c == 'q'){
+					return 0;
+				}
+				else{
+					cout << "Invalid comman. Choose between r ot q" << endl;
+				}
 			}
 			
 		}
