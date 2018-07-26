@@ -27,7 +27,7 @@ public:
 
     void restart();
     void enterFloor(); //check if win in this method
-    void cleanMap();
+    void cleanMap(); //remove everything from map
 
     Posn dirpos(std::string d, Posn p);
     void movePC(std::string d);

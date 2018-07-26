@@ -111,6 +111,10 @@ PC::PC(int maxhp, int hp, int atk, int def, string hero) :
     Race{ '@', maxhp, hp, atk, def }, name{ hero }, gold{ 0 }, atkHistory{ 0 }, defHistory{ 0 } {}
 
 
+PC::~PC(){
+    delete curTile;
+}
+
 
 //overloaded methods for item(gold and potion)
 
