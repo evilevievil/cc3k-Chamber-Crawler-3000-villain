@@ -1,4 +1,5 @@
 #include "merchant.h"
+#include "goldhoard.h"
 #include "pc.h"
 
 
@@ -22,6 +23,12 @@ void Merchant::beAttacked(PC& pc){
   hp -= d;
   giveReward(pc);
   reportDamage(d, pc.action);
+}
+
+
+void Merchant::dropReward(Map& map){
+  map[position.first][position.second] = new MerchantHoard{};
+  delete this;
 }
 
 

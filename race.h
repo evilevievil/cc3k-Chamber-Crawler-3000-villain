@@ -9,11 +9,13 @@ class Race: public Tile{
 protected:
 	Posn position;
 	int maxhp, hp, atk, def;
+	bool dead = false;
 
 public:
 	int getHp();
 	int getAtk();
 	int getDef();
+	bool getDead();
 	int damage(int atk, int def);
 	void setPosn(Posn p);
 	Posn getPosn();

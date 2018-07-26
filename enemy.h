@@ -2,6 +2,7 @@
 #define _ENEMY_H_
 #include "race.h"
 #include "typedef.h"
+#include "brick.h"
 #include <sstream>
 
 class Vampire;
@@ -15,6 +16,7 @@ public:
 	virtual void beAttacked(PC& pc);
 	virtual void beAttacked(Vampire& pc);
 	virtual void randMove(Map& map);
+	virtual void dropReward(Map& map);
 	void giveReward(PC& pc);
 	void giveReward(Goblin& pc);
 	virtual void checkSurroundings(Map& map);	

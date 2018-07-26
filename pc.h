@@ -24,14 +24,12 @@ protected:
 	std::string name;
 	int gold;
 	int atkHistory, defHistory;
-	bool dead = false;
 	Tile* curTile = nullptr;
 
 public:
 	std::ostringstream action; //public field that records PC's actions in a turn
 
 	int getGold();
-	bool isDead();
 	void setDead();
 	void setCurTile(Tile* t);
 	virtual int getScore();

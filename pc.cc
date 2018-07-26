@@ -17,10 +17,6 @@ int PC::getScore(){
   return gold;
 }
 
-bool PC::isDead(){
-  return dead;
-}
-
 string PC::getName(){
   return name;
 }

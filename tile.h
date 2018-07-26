@@ -11,7 +11,7 @@ protected:
 
 //public methods
 public:
-  Tile(char c, bool b);
+  Tile(char c, bool b = false);
   char getVisual();
   bool isWalkable();
   virtual ~Tile() = 0;

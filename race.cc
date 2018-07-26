@@ -20,6 +20,10 @@ int Race::getDef(){
   return def;
 }
 
+bool Race::getDead(){
+  return dead;
+}
+
 int Race::damage(int atk, int def){
   return std::ceil((100.0 / (100.0 + def)) * atk);
 }

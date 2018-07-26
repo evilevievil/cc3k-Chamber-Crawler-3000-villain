@@ -30,12 +30,18 @@ void Enemy::beAttacked(Vampire& pc){
   reportDamage(d, pc.action);
 }
 
+void Enemy::dropReward(Map& map){
+  map[position.first][position.second] = new Brick {'.', true};
+  delete this;
+}
+
 
 void Enemy::giveReward(PC& pc){
   // give reward if this is slained
   if(hp <= 0){
     hp = 0; // set hp to 0 if it's lower than 0
     pc.addGold((rand() % 2) + 1);
+    dead = true;
   }
 }
 
