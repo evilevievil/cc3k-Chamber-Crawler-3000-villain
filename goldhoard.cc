@@ -47,3 +47,6 @@ DragonHoard::DragonHoard():
 
 DragonHoard::~DragonHoard() {}
 
+bool DragonHoard::getExposed() {return exposed;}
+void DragonHoard::setExposed(bool b) {exposed = b;}
+
