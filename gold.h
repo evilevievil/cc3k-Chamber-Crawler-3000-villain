@@ -3,7 +3,8 @@
 #include "item.h"
 
 class Gold: public Item {
-//private fields
+//protected fields
+
 
 
 //public methods

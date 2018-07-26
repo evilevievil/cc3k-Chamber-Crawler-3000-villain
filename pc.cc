@@ -50,16 +50,24 @@ void PC::move(Map& map, Posn p){
       throw s;
   }
   // check if new square is gold
-   if(Gold * gold = dynamic_cast<Gold *>(newTile)){
-     gold->affect(*this);
-     map[position.first][position.second] = curTile;
-     delete newTile;
-     curTile = new Brick{'.', true};
-     map[p.first][p.second] = this;
-     position = p;
-     return;
+   if (Gold* gold = dynamic_cast<Gold *>(newTile)) {
+      if (DragonHoard * dragon = dynamic_cast<DragonHoard *>(gold)) {
+        if (!dragon->getExposed()){
+          map[position.first][position.second] = curTile;
+          curTile = newTile;
+          map[p.first][p.second] = this;
+          position = p;
+          return;
+        }
+      }
+       gold->affect(*this);
+       map[position.first][position.second] = curTile;
+       delete newTile;
+       curTile = new Brick{'.', true};
+       map[p.first][p.second] = this;
+       position = p;
+       return;
    }
-  // check if new sqaure is stair
 
   // walk to new square
   map[position.first][position.second] = curTile;

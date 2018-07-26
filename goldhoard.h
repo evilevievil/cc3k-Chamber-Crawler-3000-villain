@@ -36,12 +36,15 @@ public:
 
 
 class DragonHoard: public Gold {
+bool exposed = false;
 
 public:
 //public methods
   void affect(PC &pc) override;
   DragonHoard();
   ~DragonHoard();
+  bool getExposed();
+  void setExposed(bool b);
 };
 
 
