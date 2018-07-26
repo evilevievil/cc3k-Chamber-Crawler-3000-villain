@@ -10,7 +10,7 @@ int main (int argc, char* argv[]){
 	string hp = "HP: 	125				150				50					110					120";
 	string atk = "ATK:     25				 25				25					 15					 25";
 	string def = "DEF:	 25				 25				25					 20					 15";
-	string choosePc = "Please choose your hero charcter! (s , d, v, g, t, l)";
+	string choosePc = "Please choose your hero charcter! (s, d, v, g, t, l)";
 	cout << welcome << endl;
 	cout << choosePc << endl;
 
