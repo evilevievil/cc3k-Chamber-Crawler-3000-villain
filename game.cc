@@ -91,8 +91,27 @@ bool Game::dead(){
 void Game::restart() {
     cleanMap();
     delete PC;
-    floornum = 0;
-    ++floornum;
+    floornum = 1;
+    char pc;
+    while (true){
+        cin >> pc;
+        switch (pc) {
+            case 's': PC = new Shade();
+                break;
+            case 'd': PC = new Drow();
+                break;
+            case 'v': PC = new Vampire();
+                break;
+            case 'g': PC = new Goblin();
+                break;
+            case 't': PC = new Troll();
+                break;
+            default: cout << "Invalid Character. Please choose again." << endl;
+                break;
+        }
+    }
+
+    Merchant::resetHostile();
     generatorStair();
     for (int i = 0; i<10; ++i) { generatorPotion(); }
     for (int i = 0; i<10; ++i) { generatorGold(); }
