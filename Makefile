@@ -1,6 +1,6 @@
 # example4/Makefilehuman.o 
 CXX=g++
-CXXFLAGS=-std=c++14 -Wall -Werror=vla -MMD -g
+CXXFLAGS=-std=c++14 -Wall -Werror=vla -MMD -fpermissive -g
 OBJECTS=main.o game.o tile.o race.o item.o brick.o pc.o enemy.o gold.o potion.o goldhoard.o potiontype.o shade.o drow.o vampire.o troll.o goblin.o slime.o human.o elf.o orcs.o dwarf.o dragon.o halfling.o merchant.o  
 DEPENDS=${OBJECTS:.o=.d}
 EXEC=cc3k

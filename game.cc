@@ -365,8 +365,9 @@ void Game::generatorGold() {
             if (map[pm][pn]->getVisual() == '.') { break; }
         }
         newtile = new DragonHoard{};
-        Tile* dragontile = new Dragon{ Posn{ pm, pn } };
-        Enemy* e = dynamic_cast<Dragon*>(dragontile);
+        Tile* dragontile = new Dragon{ Posn{ py, px } };
+        Enemy* e = dynamic_cast<Enemy*>(dragontile);
+        e->setPosn(Posn{pm, pn});
         enemies.push_back(e);
         swap(dragontile, map[pm][pn]);
         delete dragontile;
